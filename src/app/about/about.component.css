@@ -1,0 +1,72 @@
+body{
+
+  width: 98%;
+  display: grid;
+  grid-gap: 10px; 
+  margin: 10px auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  grid-template-areas: "hd hd"
+                       "s1 s1"
+                       "d2 d2"
+                       "d1 d1"
+                       "f1 f1"
+}
+
+.hd{
+  display: grid;
+  grid-area: hd;
+   text-align: center;
+    display: flex;
+    justify-content: center;
+  
+}
+.s1{
+
+  display: grid;
+  grid-area: s1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+ 
+}
+.d1{
+
+  display: grid;
+  grid-area: d1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+ border: 3px solid cadetblue;
+}
+
+.d2{
+ margin-top: 30px;
+  display: grid;
+  grid-area: d2;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.f1{
+  display: grid;
+  grid-area: f1;
+}
+
+/* //cards */
+
+.example-card {
+  box-shadow: 0 0 30px rgb(13, 141, 120);
+ border-color: cadetblue;
+  max-width: 400px;
+}
+
+td{
+  padding: 20px;
+}
+
+.p1{
+  font-family: 'Abel', sans-serif;
+  font-size: 20px;
+}
+

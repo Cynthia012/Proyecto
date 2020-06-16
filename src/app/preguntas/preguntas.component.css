@@ -1,0 +1,57 @@
+body{
+    width: 98%;
+    display: grid;
+    grid-gap: 10px; 
+    margin: 10px auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    grid-template-areas: "hd hd"
+                         "s1 s1"
+                         "s2 s2"
+                         "f1 f1"
+}
+
+.hd{
+    display: grid;
+    grid-area: hd;
+    background-image: url('../../assets/img/c6.jpg');
+    height: 200px;
+}
+.s2{
+    display: grid;
+    grid-area: s2;
+    background-image: url('../../assets/img/c6.jpg');
+    height: 200px;
+
+}
+.s1{
+    display: grid;
+    grid-area: s1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.f1{
+    display: grid;
+    grid-area: f1;
+}
+mat-expansion-panel{
+    /* max-width:100% ; */
+    width: 1000px;
+
+}
+
+
+@media screen and (max-width: 750px){
+    mat-expansion-panel{
+        max-width:100% ;
+        width: 500px;
+    }
+
+}
+    
+
+
+
+

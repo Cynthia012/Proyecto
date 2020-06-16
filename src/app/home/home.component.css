@@ -1,0 +1,103 @@
+
+/* font-family: 'Roboto', sans-serif;
+font-family: 'Piedra', cursive;
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif; */
+
+body{
+    width: 98%;
+    display: grid;
+    grid-gap: 10px; 
+    margin: 10px auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    grid-template-areas: "hd hd"
+                         "n1 n1"
+                         " d1 d2"
+                         " d3 d4 "
+                         " d5 d6 "
+                         " f1 f1"
+
+                    
+}
+
+.hd{
+        background-image: url('../../assets/img/c6.jpg');
+        height: 350px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+}
+
+h1{
+    font-family: 'Poppins', sans-serif;
+}
+
+
+div{
+    /* background-color: antiquewhite; */
+}
+.t1, img{
+  width: 200px;
+}
+
+.n1{
+    display: grid;
+    grid-area: n1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+}
+.hd{
+    display: grid;
+    grid-area: hd;
+
+
+}
+.d1{
+    display: grid;
+    grid-area: d1;
+}
+.d2{
+    display: grid;
+    grid-area: d2;
+
+}
+.d3{
+    display: grid;
+    grid-area: d3;
+}
+.d4{
+    display: grid;
+    grid-area:d4;
+    grid-row-start: 2/3;
+
+}
+.d5{
+    display: grid;
+    grid-area: d5;
+}
+.d6{
+    display: grid;
+    grid-area:d6;
+}
+.f1{
+    display: grid;
+    grid-area: f1;
+}
+
+
+@media screen and (max-width: 850px){
+    body{
+        grid-template-areas: "hd hd"
+        "n1 n1"
+        " d1 d1"
+        " d2 d2 "
+        " d3 d3 "
+        " d4 d4"
+        " d5 d5"
+        " d6 d6"
+        " f1 f1"
+    }
+}
