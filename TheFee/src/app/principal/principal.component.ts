@@ -57,7 +57,7 @@ export class PrincipalComponent implements OnInit {
     
     // tslint:disable-next-line: align
     this.svg.append('svg:image')
-        .attr('xlink:href', '../../assets/thefee.png')
+        .attr('xlink:href', '../../assets/img/thefee.png')
         .attr('x', -100)
         .attr('y', -100)
         .attr('id', 'logotipo')
@@ -78,7 +78,7 @@ export class PrincipalComponent implements OnInit {
 
          this.svg
         .append('svg:image')
-        .attr('xlink:href', '../../assets/form.png')
+        .attr('xlink:href', '../../assets/img/form.png')
         .attr('x', 200)
         .attr('y', 150)
         .attr('width', 100)
@@ -129,7 +129,7 @@ export class PrincipalComponent implements OnInit {
 
          this.svg
         .append('svg:image')
-        .attr('xlink:href', '../../assets/login.png')
+        .attr('xlink:href', '../../assets/img/login.png')
         .attr('x', -300)
         .attr('y', -250)
         .attr('width', 100)
@@ -189,7 +189,7 @@ export class PrincipalComponent implements OnInit {
 
           this.svg
         .append('svg:image')
-        .attr('xlink:href', '../../assets/form.png')
+        .attr('xlink:href', '../../assets/img/form.png')
         .attr('x', -25)
         .attr('y', 175)
         .attr('width', 50)
@@ -234,7 +234,7 @@ export class PrincipalComponent implements OnInit {
 
           this.svg
         .append('svg:image')
-        .attr('xlink:href', '../../assets/login.png')
+        .attr('xlink:href', '../../assets/img/login.png')
         .attr('x', -37)
         .attr('y', -237)
         .attr('width', 75)

@@ -1,0 +1,151 @@
+<ng-container *ngIf="this.flag===true else sino">
+    
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="container" (click)="mostrar()" id="boton">
+            
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="../../assets/img/the_fee.png" alt="" id="logo">
+                <h6 id="texto_bienvenido">BIENVENIDO MARK</h6>
+            </div>
+    
+            <ul class="list-unstyled components">
+                <p>OPCIONES DE ADMINISTRADOR</p>
+                <li>
+                    <a href="javaScript: void(0)">PERFIL</a>
+                </li>
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >ESTADÍSTICA</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="javascript: void(0)" (click) = "showGraph()">RELACIÓN ENTRE USUARIOS</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0)" (click) = "show_growing()">CRECIMIENTO</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0)" (click)="showBarr()">CATEGORÍAS</a>
+                        </li>
+                    </ul>
+                </li>
+                
+            </ul>
+            <div *ngIf="this.user_flag">
+                <div id="users_show" class="mx-auto p-2">
+                    <div>
+                        <img src="https://cdnb.20m.es/sites/112/2019/04/cara6-620x618.jpg" alt="" class="my-2">
+                        <h5>{{this.persona1}}</h5>
+                    </div>
+                    <div>
+                        <img src="https://i.ytimg.com/vi/wJXHCPViDg0/maxresdefault.jpg" alt="" class="my-2">
+                        <h5>{{this.persona2}}</h5>
+                    </div>
+                    
+                </div>
+            </div>
+            <div *ngIf="this.barr_flag">
+                <div id="categoria_show" class="mx-auto p-2">
+                    <div>
+                        <h5> Categoría: {{this.categoria}}</h5>
+                    </div>
+                    <div>
+                        <h5> Visitados: {{this.visitados}}</h5>
+                    </div>
+                    
+                </div>
+            </div>
+            <div *ngIf="this.ojiva_flag">
+                <div id="growing_show" class="mx-auto p-2">
+                    <div>
+                        <h5> Fecha: {{this.fecha}}</h5>
+                    </div>
+                    <div>
+                        <h5> Usuarios: {{this.usuarios}}</h5>
+                    </div>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav id='responsiveBar'>
+            <a href="javaScript: void(0)  "id='perfil'>PERFIL</a>
+                
+            <a href="#homeSubmenuResponsive" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="stadistics">ESTADÍSTICA</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenuResponsive">
+                        <li>
+                            <a href="javascript: void(0)" (click) = "showGraph()">RELACIÓN ENTRE USUARIOS</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0) " (click) = "show_growing()">CRECIMIENTO</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0)" (click)="showBarr()">CATEGORÍAS</a>
+                        </li>
+                        <li>
+                            <div *ngIf="this.user_flag">
+                                <div id="users_show" class="mx-auto p-2">
+                                    <div>
+                                        <img src="https://cdnb.20m.es/sites/112/2019/04/cara6-620x618.jpg" alt="" class="my-2">
+                                        <h5>{{this.persona1}}</h5>
+                                    </div>
+                                    <div>
+                                        <img src="https://i.ytimg.com/vi/wJXHCPViDg0/maxresdefault.jpg" alt="" class="my-2">
+                                        <h5>{{this.persona2}}</h5>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div *ngIf="this.barr_flag">
+                                <div id="categoria_show" class="mx-auto p-2">
+                                    <div>
+                                        <h5> Categoría: {{this.categoria}}</h5>
+                                    </div>
+                                    <div>
+                                        <h5> Visitados: {{this.visitados}}</h5>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div *ngIf="this.ojiva_flag">
+                                <div id="growing_show" class="mx-auto p-2">
+                                    <div>
+                                        <h5> Fecha: {{this.fecha}}</h5>
+                                    </div>
+                                    <div>
+                                        <h5> Usuarios: {{this.usuarios}}</h5>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    
+            
+        </nav>
+
+
+        <div id="content">
+            
+        </div>
+    </div>
+    
+
+
+</ng-container>
+<ng-template #sino>
+    
+    
+    <h1 class="text-warning text-center">¡101!</h1>
+    <div class="alert alert-Warning text-center bg-warning">
+        <h4 class="text-center text text-white">The Fee</h4>
+        <h4 class="text-center text text-white">Permission Denied</h4>
+        <img src="../../assets/img/forbiden.gif" alt="" id="ah_ah_ah">
+    </div>
+</ng-template>
+
+
