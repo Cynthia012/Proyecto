@@ -1,12 +1,12 @@
-<form id="form_registro" class="mx-auto card w-50 my-5 p-5" [formGroup]="grupo" (ngSubmit)="enviar()" novalidate>
-    <div class="form-group">
+<form id="form_registro" #form_registro="ngForm" class="mx-auto card w-50 my-5 p-5" [formGroup]="grupo" (ngSubmit)="enviar()" novalidate>
+    <div class="form-group">                                                                                       
       <label for="exampleInputEmail1">Correo Electrónico</label>
-      <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" #email formControlName="email">
+      <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email"  [(ngModel)]="user.email" #email formControlName="email">
       <small id="emailHelp" class="form-text text-muted">Tus datos serán vendido al mejor postor</small>
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Contraseña</label>
-      <input type="password" class="form-control" placeholder="Password" #passwd formControlName="password">
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" #passwd formControlName="password">
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Confirmar Contraseña</label>
@@ -17,8 +17,9 @@
     </div>
     <div class="form-group">
       <label for="exampleInputPassword1">Nombre de usuario</label>
-      <input type="text" class="form-control" placeholder="Usuario" #user formControlName="nombre">
+      <input type="text" class="form-control" placeholder="Usuario" [(ngModel)]="user.name" #user formControlName="nombre">
     </div>
-    <button type="submit" class="btn btn-outline-primary" [disabled]='grupo.invalid'>Registrarse</button>
+    <!-- [disabled]='grupo.invalid' -->
+    <button type="submit  " class="btn btn-outline-primary" >Registrarse</button>
     <button type="button" class="btn btn-outline-dark" (click) = "back()">Regresar</button>
 </form>  

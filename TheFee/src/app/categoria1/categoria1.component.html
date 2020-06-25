@@ -1,0 +1,64 @@
+<body>
+  <section class="h1">
+    <img class="usu" src="#" alt="" />
+  </section>
+
+  <section class="h2">
+    <img class="usu" src="#" alt="" />
+  </section>
+
+  <section class="s1">
+    <mat-card class="grid-item text-center" style="
+        background: -moz-linear-gradient(
+          top,
+          rgba(5, 0, 5, 1) 0%,
+          rgba(250, 168, 168, 1) 51%,
+          rgba(250, 168, 168, 1) 51%,
+          rgba(0, 0, 0, 1) 100%
+        );
+      ">
+      <mat-card-header>
+        <mat-card-title>{{idCategoria}}</mat-card-title>
+        <mat-card-subtitle>publicaciones</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="container">
+          <mat-card class="grid-item text-center">
+            <mat-card-header>
+              <img mat-card-avatar src="../../assets/usu.png" alt="" />
+              <mat-card-title>{{user.displayName}}</mat-card-title>
+              <mat-card-subtitle>¿Tienes algo que decir?</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div>
+                <div class="form-group">
+                  <textarea [(ngModel)]="mensaje" class="form-control" rows="5" id="comment"></textarea>
+                  <button (click)="addPost()" mat-raised-button color="primary" style="text-align: left;">
+                    Publicar
+                  </button>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <div *ngFor="let post of posts" class="container">
+        <mat-card class="grid-item text-center">
+          <mat-card-header>
+            <img mat-card-avatar src="../../assets/usu.png" alt="" />
+            <mat-card-title>{{post.autor}}</mat-card-title>
+            <mat-card-subtitle>{{post.fecha}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div>
+              {{post.mensaje}}
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </section>
+</body>
+
+<!-- kfvjnfj
+<img class="usu" src="../../assets/cat/info.jpg"   alt=""> -->

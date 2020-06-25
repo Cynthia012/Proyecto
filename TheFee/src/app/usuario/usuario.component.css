@@ -1,0 +1,39 @@
+body{
+
+    display:grid;
+    grid-template-areas: "h1 s1 h2";
+    /* background-color:black; */
+    background-image: url("../../assets/cat/f1.jpg");
+
+}
+
+.h1{
+    background-image: url("../../assets/cat/f1.jpg");
+
+    display:grid;
+    margin-top: 10px;
+    grid-area: h1;
+}
+
+.h2{
+    background-image: url("../../assets/cat/f1.jpg");
+
+    display:grid;
+    margin-top: 10px;
+    grid-area: h2;
+}
+
+
+.s1{
+      background-image: url("../../assets/cat/f1.jpg");
+
+    margin-top: 10px;
+    display:grid;
+    grid-area: s1;
+}
+
+
+.usu{
+    width: 200px;
+    border-radius: 50%;
+}

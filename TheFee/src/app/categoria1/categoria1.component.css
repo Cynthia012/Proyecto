@@ -1,0 +1,33 @@
+body{
+
+    display:grid;
+    grid-template-areas: "h1 s1 h2";
+    background-color:black;
+
+}
+
+.h1{
+    display:grid;
+    margin-top: 10px;
+    grid-area: h1;
+}
+
+.h2{
+    display:grid;
+    margin-top: 10px;
+    grid-area: h2;
+}
+
+
+.s1{
+
+    margin-top: 10px;
+    display:grid;
+    grid-area: s1;
+}
+
+
+.usu{
+    width: 200px;
+    border-radius: 50%;
+}
