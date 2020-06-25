@@ -1,4 +1,4 @@
-<form id="form_registro" #form_registro="ngForm" class="mx-auto card w-50 my-5 p-5" [formGroup]="grupo" (ngSubmit)="enviar()" novalidate>
+<form id="form_registro" #form_registro="ngForm" class="mx-auto card w-50 my-5 p-5" [formGroup]="grupo" (ngSubmit)="onRegister()" novalidate>
     <div class="form-group">                                                                                       
       <label for="exampleInputEmail1">Correo Electrónico</label>
       <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email"  [(ngModel)]="user.email" #email formControlName="email">

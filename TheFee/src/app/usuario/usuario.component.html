@@ -16,27 +16,25 @@
         <mat-card class="grid-item text-center" style="background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(153,170,255,1) 51%, rgba(0,0,0,1) 100%);">
           
           <mat-card-header>
-       <img mat-card-avatar [src]="fotoURL" alt="">
+       <img mat-card-avatar src="../../assets/usu.png" alt="">
   
               <mat-card-title>Usuario</mat-card-title>
               <mat-card-subtitle>publicaciones</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              <div *ngFor="let post of myPosts" class="container">
-                <mat-card class="grid-item text-center">
-                  <mat-card-header>
-                    <img mat-card-avatar [src]="fotoURL" alt="" />
-                    <mat-card-title>{{post.autor}}</mat-card-title>
-                    <mat-card-subtitle>{{post.fecha}}</mat-card-subtitle>
-                    <mat-card-subtitle>{{post.categoria}}</mat-card-subtitle>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <div>
-                      {{post.mensaje}}
-                    </div>
-                  </mat-card-content>
-                </mat-card>
-              </div>
+           
+<div class="container">
+  <mat-card class="grid-item text-center">
+    <mat-card-header>
+  <img mat-card-avatar src="../../assets/usu.png" alt="" >
+      <mat-card-title>usuario</mat-card-title>
+      <mat-card-subtitle>publicacion</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+    </mat-card-content>
+  </mat-card>  
+</div>
+
             </mat-card-content>
             <mat-card-actions>
               <button mat-fab color="primary" aria-label="Example icon button with a delete icon">

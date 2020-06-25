@@ -8,7 +8,7 @@
       <label for="exampleInputPassword1">Contraseña</label>
       <input [(ngModel)]="psw" type="password" class="form-control" placeholder="Password">
     </div>
-    <button type="button" class="btn btn-outline-primary" (click)="login()">Ingresar</button>
+    <button type="button" class="btn btn-outline-primary" [routerLink]="['/categorias']" (click)="back1()">Ingresar</button>
 
     <button type="submit" class="btn btn-outline-dark" (click)="back2()">Regresar</button>
   </div>

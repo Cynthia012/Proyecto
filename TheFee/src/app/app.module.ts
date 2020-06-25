@@ -11,6 +11,7 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import {  HttpClientModule,HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs/internal/observable";
 import{ GuardiaGuard } from '../app/guards/guardia.guard';
 //angular
 import { MaterialModule } from './material/material.module';
@@ -22,9 +23,7 @@ import { AuthService } from './auth.service';
 import { AdminComponent } from './admin/admin.component';
 import { QuejaComponent } from './queja/queja.component';
 import { GetlogComponent } from './getlog/getlog.component';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -49,8 +48,7 @@ import { environment } from 'src/environments/environment';
     FormsModule,
     MaterialModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
+   
   ],
   providers: [AuthService, LoginComponent],
   bootstrap: [AppComponent]
