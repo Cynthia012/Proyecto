@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CategoriasComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router){ }
  
 
   ngOnInit(): void {
