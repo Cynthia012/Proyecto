@@ -1,0 +1,128 @@
+{
+  "configVersion": 1,
+  "timestamp": 1593934701514,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/5-es2015.bc3e6c9602b5be79b90c.js",
+        "/5-es5.bc3e6c9602b5be79b90c.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-es2015.c50c795772c737818674.js",
+        "/main-es5.c50c795772c737818674.js",
+        "/manifest.webmanifest",
+        "/polyfills-es2015.1f913f16a2d346cc8bdc.js",
+        "/polyfills-es5.1a3c78b07cd6f16c6e9a.js",
+        "/runtime-es2015.b30857b68b5464ad0262.js",
+        "/runtime-es5.b30857b68b5464ad0262.js",
+        "/scripts.d137d5543bc53b345a19.js",
+        "/styles.f919664413d3c22abdd1.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/cat/arte.jpg",
+        "/assets/cat/comedia.jpg",
+        "/assets/cat/comedia.png",
+        "/assets/cat/dep.jpg",
+        "/assets/cat/f1.jpg",
+        "/assets/cat/info.jpg",
+        "/assets/cat/m1.jpg",
+        "/assets/cat/m1.webp",
+        "/assets/cat/med.jpg",
+        "/assets/cat/med.png",
+        "/assets/cat/mus.jpg",
+        "/assets/form.png",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/load.gif",
+        "/assets/load.png",
+        "/assets/load2.gif",
+        "/assets/login.png",
+        "/assets/the_fee.png",
+        "/assets/the_fee_opacity.png",
+        "/assets/thefee.png",
+        "/assets/usu.png",
+        "/the_fee_opacity.51ea0382425eb19f5fa4.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/5-es2015.bc3e6c9602b5be79b90c.js": "4bd95cfdf128c6fadc1814101ef38378d84e1fbf",
+    "/5-es5.bc3e6c9602b5be79b90c.js": "4bd95cfdf128c6fadc1814101ef38378d84e1fbf",
+    "/assets/cat/arte.jpg": "037f633c89b3687446bc983184bebc300587eb8c",
+    "/assets/cat/comedia.jpg": "7dbb3c08e748f3251d66263430f3d989c9b27499",
+    "/assets/cat/comedia.png": "6144dd47e2baf3aa8fb25ed45832a4ff0a9bae10",
+    "/assets/cat/dep.jpg": "1c9a14d315eabc0caecbc5f843b4484c31a0bbf3",
+    "/assets/cat/f1.jpg": "889527ea6e652fd2c9fa2e3a5c0fe532fda905e4",
+    "/assets/cat/info.jpg": "61b4d5be2aca8839bfab05cff558213168e3efd8",
+    "/assets/cat/m1.jpg": "842ca7058229cb4620fc3fa90a5757d6eaacb536",
+    "/assets/cat/m1.webp": "74a5a8b7e7ca7b69a5cf3af6f5f2d5f700ceb159",
+    "/assets/cat/med.jpg": "d4b89ad5c9387fa3cc9dfb67f9fa0a19d4db1caf",
+    "/assets/cat/med.png": "c495067ed682068469e36141d05c3d7aae6381c5",
+    "/assets/cat/mus.jpg": "4056d87880d489a4bbcbcb862d37f491ff2293be",
+    "/assets/form.png": "3938374937eb5997cd4b954b97a275ac51ecf2e2",
+    "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/assets/load.gif": "3efed8457f437b0e84a6d63fca1b3b5c84bea25d",
+    "/assets/load.png": "79d3d69cf951b426834b2aee079fef0819012870",
+    "/assets/load2.gif": "c41b45efe4136c25320266b673cac19701f7f61f",
+    "/assets/login.png": "f115d69f9e4b0e62331b0d589a07908f64d629bc",
+    "/assets/the_fee.png": "85224795e17a35b2aef1053234bc9a20d2d62228",
+    "/assets/the_fee_opacity.png": "63fa4408d9b13091bce85f6bf28ef616d6e4f48e",
+    "/assets/thefee.png": "40c5fb959e4b6d971824a9ac33501002407e614f",
+    "/assets/usu.png": "f5706146c33ce34a216f5c8e639a2d35eaa56cd5",
+    "/favicon.ico": "7bf266e8a78b5f4fc51782878deb158ca14b62f1",
+    "/index.html": "618f909e6fb6cb2331446a033df6d009529f44a1",
+    "/main-es2015.c50c795772c737818674.js": "7a9f6112476e2f701736f054feed42ddd1c55257",
+    "/main-es5.c50c795772c737818674.js": "a0328adffaf03dc1dacbf86a18aace03c7902f5c",
+    "/manifest.webmanifest": "599355939e4b15ddda8a716aba9549eddf368908",
+    "/polyfills-es2015.1f913f16a2d346cc8bdc.js": "72ad4ccc0a3916ae4598199447cdeadd6d380570",
+    "/polyfills-es5.1a3c78b07cd6f16c6e9a.js": "4c46a59a04fcad729e7b2431f01c09b3d92070c4",
+    "/runtime-es2015.b30857b68b5464ad0262.js": "13b2a405540d3168ac5d6e5fcd4aeef23c84b903",
+    "/runtime-es5.b30857b68b5464ad0262.js": "1eeaf4d34eccaee484a1cde417a7c141d8958fa2",
+    "/scripts.d137d5543bc53b345a19.js": "233ef1259cb77b96245c97474f6339d0d87f1bef",
+    "/styles.f919664413d3c22abdd1.css": "07d53604af886762a522abbc14116ef07753d579",
+    "/the_fee_opacity.51ea0382425eb19f5fa4.png": "63fa4408d9b13091bce85f6bf28ef616d6e4f48e"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

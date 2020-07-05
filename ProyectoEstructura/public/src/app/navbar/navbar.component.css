@@ -1,0 +1,11 @@
+.im1{
+    width:100px ;
+    border-radius: 50%;
+    }
+
+    .spacer{
+        flex: 1 1 auto; 
+     }
+     .example-spacer {
+        flex: 1 1 auto;
+    }
