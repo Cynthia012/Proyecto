@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -7,17 +9,26 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./categorias.component.css']
 })
 export class CategoriasComponent implements OnInit {
-
-  constructor(private router: Router) { }
- 
+  flagEnter = false;
+  constructor(private router: Router,
+    private afAuth: AngularFireAuth,
+    private ngZone: NgZone,
+    private authService: AuthService) {
+    this.afAuth.onAuthStateChanged((user) => {
+      this.ngZone.run(() => {
+        if (!user) {
+          this.router.navigate(['theFee']);
+        }else this.flagEnter = true;
+      });
+    });
+  }
 
   ngOnInit(): void {
   }
 
-  btnClick() {
-  
-    this.router.navigateByUrl('/categoria1');
-};
+  btnClick(id: string) {
+    this.router.navigateByUrl('/categoria1/' + id);
+  };
 
-  
+
 }

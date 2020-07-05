@@ -1,77 +1,58 @@
-import { Observable } from "rxjs/internal/observable";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders   } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams   } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserInterface } from "../app/models/user-interface";
 
 
 import { isNullOrUndefined } from "util";
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
 
-  constructor(private htttp: HttpClient) {}
- 
-  headers: HttpHeaders = new HttpHeaders({
-    "Content-Type": "application/json",
-  });
-
-  registerUser(name: string, email: string, password: string) {
-    const url_api = "http://localhost:3000/api/Users";
-    return this.htttp
-      .post<UserInterface>(
-        url_api,
-        {
-          name: "jenny",
-          email: "jenny@gmail.com",
-          password: "123  "
-        },
-        { headers: this.headers }
-      )
-      .pipe(map(data => data));
+  urlapi: string = 'http://localhost:3000/';
+  private $user: BehaviorSubject<any> = new BehaviorSubject<any>(null);//igual a nulo
+  _user: Observable<any> = this.$user.asObservable(); //_person sera un observable de un solo objeto
+  aux: any;
+  constructor(private http: HttpClient, private afAuth: AngularFireAuth) {
+  
+    this.afAuth.onAuthStateChanged((user) => {
+      this.aux = user;
+      console.log("-service");
+      console.log(user);
+      
+      
+      
+    });
   }
 
-  loginuser(email: string, password: string): Observable<any> {
-    const url_api = "http://localhost:3000/api/Users/login?include=user";
-    return this.htttp
-      .post<UserInterface>(
-        url_api,
-        { email, password },
-        { headers: this.headers }
-      )
-      .pipe(map(data => data));
+  addUserBD(uid: any, nombre: string, foto: string, fecha: string) {
+    console.log(`${uid} ${nombre} ${foto} ${fecha}`);
+
+    const body = new HttpParams()
+    .set('nombre', nombre)
+    .set('uid', uid)
+    .set('foto', foto)
+    .set('fecha', fecha);
+
+    return this.http.post(this.urlapi + 'addUser', body.toString(), {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+    });
   }
 
-  setUser(user: UserInterface): void {
-    let user_string = JSON.stringify(user);
-    localStorage.setItem("currentUser", user_string);
+  updateUser(){
+    this.afAuth.currentUser.then((user) => {this.aux = user; });
+    this.$user.next(this.aux);
+    console.log("login---------->");
+    console.log(this.aux);
   }
 
-  setToken(token): void {
-    localStorage.setItem("accessToken", token);
+  getUser(): any {
+    return this.aux;
   }
 
-  getToken() {
-    return localStorage.getItem("accessToken");
-  }
-
-  getCurrentUser(): UserInterface {
-    let user_string = localStorage.getItem("currentUser");
-    if (!isNullOrUndefined(user_string)) {
-      let user: UserInterface = JSON.parse(user_string);
-      return user;
-    } else {
-      return null;
-    }
-  }
-
-  logoutUser() {
-    let accessToken = localStorage.getItem("accessToken");
-    const url_api = `http://localhost:3000/api/Users/logout?access_token=${accessToken}`;
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("currentUser");
-    return this.htttp.post<UserInterface>(url_api, { headers: this.headers });
-  }
 }

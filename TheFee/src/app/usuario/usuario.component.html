@@ -2,7 +2,27 @@
     
 
     <section class="h1">
-        <img class="usu" src="#"   alt=""> 
+      <div><!-- Default dropright button -->
+        <div class="btn-group dropright" >
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <mat-icon>campaign</mat-icon>
+          </button>
+      
+          <div class="dropdown-menu" style="   background-color:rgb(37, 37, 37); ">
+                <button mat-mini-fab color="primary" aria-label=" " (click)="play()">
+                  <mat-icon>play_circle_filled</mat-icon>
+                </button>
+                <button mat-mini-fab color="primary" aria-label=" " (click)="pausa()">
+                  <mat-icon>stop</mat-icon>
+                </button>
+                <button mat-mini-fab color="primary" aria-label=" " (click)="continua()">
+                  <mat-icon>pause</mat-icon>
+                </button>
+               
+      
+          </div>
+        </div>
+      </div>
     </section>
 
     
@@ -11,35 +31,91 @@
         
     </section>
 
-    <section class="s1">
+    
 
-        <mat-card class="grid-item text-center" style="background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(153,170,255,1) 51%, rgba(0,0,0,1) 100%);">
-          
+    <section class="s1" id="esto">
+      <div *ngIf="flagFormPhone">
+        <label for="phone">Número de teléfono</label>
+        <input class="form-control" type="text" name="phone" [(ngModel)]="phoneText" placeholder="+529876543210">
+        <button class="btn btn-outline-success" (click)="addPhone()">Enviar</button>         
+      </div>
+      <div id="recaptcha-container"></div>     
+      <div *ngIf="flagConfirmPhone">
+        <label for="phone">Ingrese Código de verificación</label>
+        <input class="form-control" type="text" name="phone" [(ngModel)]="confirmCode" placeholder="6 Dígitos">
+        <button class="btn btn-outline-success" (click)="confirmPhone()">Enviar</button>
+      </div>
+        <mat-card class="grid-item text-center" id = "princ">  
           <mat-card-header>
        <img mat-card-avatar src="../../assets/usu.png" alt="">
   
-              <mat-card-title>Usuario</mat-card-title>
-              <mat-card-subtitle>publicaciones</mat-card-subtitle>
+              <mat-card-title class="grid-item text-center">{{this.usuario}}</mat-card-title>
+              <a href="javascript:void(0)" *ngIf="this.phone === null && this.idUser === this.selfUser" style="color:lime" (click)="this.flagFormPhone = true">Añadir Número de teléfono</a>
+              <mat-card-subtitle *ngIf="this.idUser !== this.selfUser"><button class="btn btn-outline-light mx-2">Seguir</button><button class="btn btn-outline-warning" (click)="this.flagMensaje=true">Mensaje Secreto</button></mat-card-subtitle>
+              <mat-card-subtitle *ngIf="this.flagMensaje else sino">
+                <textarea [(ngModel)]="mensaje" class="form-control form-control-sm m-3" cols="10" rows="5" ></textarea>
+                <button class="btn btn-outline-warning m-2" (click)="enviarMensaje()">Enviar Mensaje Secreto</button>
+                <button class="btn btn-outline-danger m-2" (click)="this.flagMensaje=false">Cancelar</button>
+              </mat-card-subtitle> 
+              <ng-template #sino>
+              <mat-card-subtitle>            
+                <button *ngIf="this.idUser === this.selfUser" class="btn btn-outline-light m-2" (click)="recuperarMensajes()">Ver Mensajes</button>
+              </mat-card-subtitle> 
+            </ng-template>
+              <mat-card-subtitle *ngIf="this.flagVer" class="w-100 p-2">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">                  
+                  <div class="carousel-inner" >
+                    <div class="carousel-item active" *ngFor="let mens of this.mensajesList; let i = index" [ngClass]="{'active' : i == 0}">
+                      <app-qr [info] = "mens"></app-qr>                      
+                    </div>
+                  
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+              </mat-card-subtitle>  
+              <mat-card-subtitle  class="grid-item text-center">publicaciones</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-           
-<div class="container">
-  <mat-card class="grid-item text-center">
-    <mat-card-header>
-  <img mat-card-avatar src="../../assets/usu.png" alt="" >
-      <mat-card-title>usuario</mat-card-title>
-      <mat-card-subtitle>publicacion</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-    </mat-card-content>
-  </mat-card>  
-</div>
-
+              <mat-icon id="load" *ngIf="this.flagLoad">brightness_1</mat-icon>
+              <div *ngFor="let post of myPosts" class="container">
+                <mat-card class="grid-item text-center">
+                  <mat-card-header>
+                    <img mat-card-avatar [src]="fotoURL" alt="" />
+                    <mat-card-title>                    
+                      {{post.autor}}
+                      <a class="edicion" href="javascript:void(0)" (click)="eliminarPost(post)" *ngIf="this.idUser === this.selfUser"> <mat-icon>delete_outline</mat-icon></a>
+                      <a class="edicion" href="javascript:void(0)" (click)="this.flagEdicion=true;this.edicionValue=post.mensaje" *ngIf="this.idUser === this.selfUser"> <mat-icon>description</mat-icon></a>
+                    </mat-card-title>
+                    <mat-card-subtitle>{{post.fecha}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{post.categoria}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <div *ngIf="!this.flagEdicion ">
+                      {{post.mensaje}}
+                    </div>
+                    <div  *ngIf="this.flagEdicion">
+                    <textarea                   
+                    [(ngModel)]="edicionValue"
+                    class="form-control"
+                    rows="5"
+                  ></textarea>
+                <mat-card-header>
+                  <button class="btn btn-outline-warning my-3" (click)="editarPost(post)">Guardar Cambios</button>
+                </mat-card-header>
+              </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
-                <mat-icon>east</mat-icon>
-              </button>
+              
               
             </mat-card-actions>
           </mat-card> 

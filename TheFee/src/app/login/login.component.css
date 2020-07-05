@@ -8,3 +8,10 @@ body{
     
     background-color: black;
 }
+
+.changeForm{
+    color:black;
+}
+.changeForm:hover{
+    color:rgb(194, 0, 97);
+}

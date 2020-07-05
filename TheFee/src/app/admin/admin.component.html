@@ -34,6 +34,16 @@
                         </li>
                     </ul>
                 </li>
+                <li *ngIf="this.quejas_flag">
+                    <h5 class="text-light">Quejas Recientes</h5>
+                    <div *ngFor="let item of this.quejas">
+                       <div style="border: 1px solid white;">
+                        <h6 class="text-light">Usuario: {{item.usuario}}</h6>
+                        <h6 class="text-light">Queja: {{item.queja}}</h6>
+                       </div>
+                    </div>
+                    <button class="btn btn-outline-light" (click)="eliminarQuejas()">Eliminar</button>
+                </li>
                 
             </ul>
             <div *ngIf="this.user_flag">
@@ -63,7 +73,7 @@
             <div *ngIf="this.ojiva_flag">
                 <div id="growing_show" class="mx-auto p-2">
                     <div>
-                        <h5> Fecha: {{this.fecha}}</h5>
+                        <h5> Fecha: {{this.fecha  | date: 'dd/MM/yyyy'}}</h5>
                     </div>
                     <div>
                         <h5> Usuarios: {{this.usuarios}}</h5>
@@ -114,7 +124,7 @@
                             <div *ngIf="this.ojiva_flag">
                                 <div id="growing_show" class="mx-auto p-2">
                                     <div>
-                                        <h5> Fecha: {{this.fecha}}</h5>
+                                        <h5> Fecha: {{this.fecha | date: 'dd/MM/yyyy'}}</h5>
                                     </div>
                                     <div>
                                         <h5> Usuarios: {{this.usuarios}}</h5>

@@ -1,5 +1,5 @@
 <body>
-  <div id="form_login" class="mx-auto card w-50 my-5 p-5"> 
+  <div id="form_login" class="mx-auto card w-50 my-5 p-5" *ngIf="!this.flagPhone"> 
     <div class="form-group">
       <label for="exampleInputEmail1">Correo Electrónico</label>
       <input [(ngModel)]="email" type="email" class="form-control"  placeholder="Enter email">
@@ -8,9 +8,32 @@
       <label for="exampleInputPassword1">Contraseña</label>
       <input [(ngModel)]="psw" type="password" class="form-control" placeholder="Password">
     </div>
-    <button type="button" class="btn btn-outline-primary" [routerLink]="['/categorias']" (click)="back1()">Ingresar</button>
+    <button type="button" class="btn btn-outline-primary" (click)="login()">Ingresar</button>
 
     <button type="submit" class="btn btn-outline-dark" (click)="back2()">Regresar</button>
+    <div class="mx-auto"><a href="javascript:void(0)" (click)="this.flagPhone=true" class="changeForm"><mat-icon>email</mat-icon></a></div>
+
+  </div>
+
+  <div id="form_login" class="mx-auto card w-50 my-5 p-5" *ngIf="this.flagPhone"> 
+    <div class="form-group">
+      <label for="numero">Número telefónico</label>
+      <input [(ngModel)]="phone" type="text" class="form-control"  placeholder="Ej. +529876543210">
+      <p >Recuerde el código de su país</p>
+      <hr style="color:gray">
+      <!--Verificacion por medio del reCaptcha-->
+      <div id="recaptcha-container"></div>
+      <hr style="color:gray">
+      <button class="btn btn-outline-info" (click)="sendLoginCode()">Enviar código por SMS</button>
+    </div>
+    <!--*ngIf="windowRef.confirmationResult"-->
+    <div class="form-group">
+      <label for="code">Ingrese aquí su código de verificación</label>
+      <input type="text" name="code" [(ngModel)]="verificationCode" class="input m-2">
+      <button class="btn btn-outline-info m-2" (click)="verifyLoginCode()">Verificar</button>
+    </div>
+    <div class="mx-auto"><a href="javascript:void(0)" (click)="this.flagPhone=false" class="changeForm"><mat-icon> message</mat-icon></a></div>
+
   </div>
 
 </body>

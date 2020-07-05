@@ -3,7 +3,7 @@ body{
     height: 100%;
     width: 100%;
     display: grid;
-    background-color: black;
+    background-color:rgb(37, 37, 37); 
     grid-template-areas: "h1 h1"
                          "s1 s1"
                          "s1 s1"

@@ -3,3 +3,18 @@
 html, body { height: 100%;
 background-color: black; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+#load{
+    width:10em;
+    height:10em;
+    transition: transform 1s linear;
+    transform-origin: center center;
+    transform-style: preserve-3D;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+
+}
+@keyframes example {
+    from {  transform: rotate(0deg);  color: rgb(182, 0, 121);   text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px}
+    to {  transform: rotate(360deg);color: rgb(79, 0, 182);    text-shadow: 0 0 30px #000000}
+  }

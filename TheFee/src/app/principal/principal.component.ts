@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { GetlogService } from './../getlog.service';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as d3 from 'd3';
 @Component({
@@ -7,29 +10,53 @@ import * as d3 from 'd3';
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
-
+  
   flag_forms = false;
         svg;
+  resize;
+  flagReg = true;
+  constructor(private getLog: GetlogService,
+              private afAuth: AngularFireAuth,
+              private ngZone: NgZone,
+              private router: Router,
+              private authService: AuthService) {
+                
 
-  constructor(private router: Router) {
+
   }
 
   ngOnInit(): void {
-    this.create_menu(this.svg);
-    window.onresize = () => { d3.selectAll('svg').remove(); this.create_menu(this.svg)};}
+  
+
+  this.afAuth.onAuthStateChanged((user) => {
+    this.ngZone.run(() => {
+      if (user) {
+        this.router.navigate(['categorias']);
+      }else{
+        d3.selectAll('svg').remove(); 
+        this.create_menu(this.svg);
+      }
+    });
+  });
+    
+  }
  create_menu(svg) {
+   
+  
   
   let margin = {top: window.innerHeight / 2, right: window.innerWidth / 2, bottom: window.innerHeight / 2, left: window.innerWidth / 2};
-  let width = window.innerWidth;
-  let height = window.innerHeight;
+  let width = window.screen.width;
+  let height = window.screen.height;
+  
    if (!this.flag_forms) {
 
        // tslint:disable-next-line: align
       this.svg = d3.select('body')
+      .style('background-color','rgb(37, 37, 37) ')
        .append('svg')
        .attr('id', 'principal')
-       .attr('width', width + margin.left + margin.right)
-       .attr('height', height + margin.top + margin.bottom)
+       .attr('width', width )
+       .attr('height', height)
        .append('g')
        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
       let self = this;
@@ -78,7 +105,7 @@ export class PrincipalComponent implements OnInit {
 
          this.svg
         .append('svg:image')
-        .attr('xlink:href', '../../assets/.formpng')
+        .attr('xlink:href', '../../assets/form.png')
         .attr('x', 200)
         .attr('y', 150)
         .attr('width', 100)
@@ -109,6 +136,7 @@ export class PrincipalComponent implements OnInit {
                             d3.select('#principal')
 .transition()
 .duration(500)
+
 .on('end',() => {self.router.navigateByUrl('/register');})
 .style('opacity', 0)
 .remove();})

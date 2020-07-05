@@ -1,61 +1,113 @@
 <body>
-    
+  <section class="h1">
+    <div>
+      <!-- Default dropright button -->
+      <div class="btn-group dropright">
+        <button
+          type="button"
+          class="btn btn-secondary dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <mat-icon>campaign</mat-icon>
+        </button>
 
-    <section class="h1">
-        <img class="usu" src="#"   alt=""> 
-    </section>
+        <div class="dropdown-menu" style="background-color: rgb(37, 37, 37);">
+          <button mat-mini-fab color="primary" aria-label=" " (click)="play()">
+            <mat-icon>play_circle_filled</mat-icon>
+          </button>
+          <button mat-mini-fab color="primary" aria-label=" " (click)="pausa()">
+            <mat-icon>stop</mat-icon>
+          </button>
+          <button
+            mat-mini-fab
+            color="primary"
+            aria-label=" "
+            (click)="continua()"
+          >
+            <mat-icon>pause</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    
-    <section class="h2">
-        <img class="usu" src="#"   alt=""> 
-        
-    </section>
+  <section class="h2">
+    <img class="usu" src="#" alt="" />
+  </section>
 
-    <section class="s1">
-
-        <mat-card class="grid-item text-center" style="background: -moz-linear-gradient(top, rgba(5,0,5,1) 0%, rgba(250,168,168,1) 51%, rgba(250,168,168,1) 51%, rgba(0,0,0,1) 100%);">
+  <section class="s1" id="esto">
+    <mat-card
+      class="grid-item text-center"
+      style="
+        background: -moz-linear-gradient(
+          top,
+          rgba(5, 0, 5, 1) 0%,
+          rgba(250, 168, 168, 1) 51%,
+          rgba(250, 168, 168, 1) 51%,
+          rgba(0, 0, 0, 1) 100%
+        );
+      "
+    >
+      <mat-card-header>
+        <mat-card-title>{{ idCategoria }}</mat-card-title>
+        <mat-card-subtitle>publicaciones</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="container">
+          <mat-card class="grid-item text-center">
             <mat-card-header>
-              <mat-card-title>Medicina</mat-card-title>
-              <mat-card-subtitle>publicaciones</mat-card-subtitle>
+              <img mat-card-avatar src="../../assets/usu.png" alt="" />
+              <mat-card-title>{{ user.displayName }}</mat-card-title>
+              <mat-card-subtitle>¿Tienes algo que decir?</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-        
-<div class="container">
-  <mat-card class="grid-item text-center">
-    <mat-card-header>
-  <img mat-card-avatar src="../../assets/usu.png" alt="" >
-      <mat-card-title>usuario</mat-card-title>
-      <mat-card-subtitle>¿Tienes algo que decir?</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <form>
-        <div class="form-group">
-          <textarea class="form-control" rows="5" id="comment"></textarea>
-          <button mat-raised-button color="primary" style="text-align: left;">Publicar</button>
-        </div>
-      </form>
-    </mat-card-content>
-  </mat-card>  
-</div>
-
+              <div>
+                <div class="form-group">
+                  <textarea
+                    [(ngModel)]="mensaje"
+                    class="form-control"
+                    rows="5"
+                    id="comment"
+                  ></textarea>
+                  <button
+                    (click)="addPost()"
+                    mat-raised-button
+                    color="primary"
+                    style="text-align: left;"
+                  >
+                    Publicar
+                  </button>
+                </div>
+              </div>
             </mat-card-content>
-            <mat-card-actions>
-              <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
-                <mat-icon>east</mat-icon>
-              </button>
-              
-            </mat-card-actions>
-          </mat-card> 
-        
-        
-
-    </section>
-
+          </mat-card>
+        </div>
+      </mat-card-content>
+      <div *ngFor="let post of posts" class="container">
+        <mat-card class="grid-item text-center">
+          <mat-card-header>
+            <img mat-card-avatar src="../../assets/usu.png" alt="" />
+            <mat-card-title
+              ><a
+                href="javascript:void(0)"
+                (click)="goToUser(post.id, post.autor)"
+                >{{ post.autor }}</a
+              ></mat-card-title
+            >
+            <mat-card-subtitle>{{ post.fecha }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div id="esto">
+              {{ post.mensaje }}
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card>
+  </section>
 </body>
-
 
 <!-- kfvjnfj
 <img class="usu" src="../../assets/cat/info.jpg"   alt=""> -->
-
- 
-

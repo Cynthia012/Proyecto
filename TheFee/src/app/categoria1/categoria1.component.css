@@ -2,7 +2,7 @@ body{
 
     display:grid;
     grid-template-areas: "h1 s1 h2";
-    background-color:black;
+    background-color:rgb(37, 37, 37); 
 
 }
 
@@ -30,4 +30,9 @@ body{
 .usu{
     width: 200px;
     border-radius: 50%;
+}
+
+.dropdown-menu{
+    position: relative;
+    top: -110px;
 }

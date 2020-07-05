@@ -1,8 +1,37 @@
-
-    
-    <div class="form-group">
-        <label for="exampleInputPassword1">Escriba su queja aquí</label>
-        <textarea class="form-control" id="exampleInputPassword1" rows="10" cols="5" ></textarea>
+<section class="s1" id="esto">
+  <mat-card
+    class="grid-item text-center"
+    style="
+      background: -moz-linear-gradient(
+        top,
+        rgba(5, 0, 5, 1) 0%,
+        rgba(250, 168, 168, 1) 51%,
+        rgba(250, 168, 168, 1) 51%,
+        rgba(0, 0, 0, 1) 100%
+      );
+    "
+  >
+    <mat-card-header>
+      <mat-card-title>
+        ¿Tienes alguna queja o sugerencia?
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Escribela aqui:</label>
+        <textarea
+          class="form-control"
+          [(ngModel)]="this.comentario"
+          id="exampleInputPassword1"
+          rows="10"
+          cols="5"
+        ></textarea>
       </div>
-    <button type="submit" class="btn btn-outline-primary">Enviar</button>
-    <button type="submit" class="btn btn-dark-primary">Volver</button>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="btn btn-outline-primary" (click)="enviarComentario()">
+        Enviar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</section>

@@ -13,13 +13,13 @@
 .wrapper {
 
     display: flex;
-    background-color:black;    
+    background-color:rgb(37, 37, 37); 
 }
 #content{
     flex: 0 1 75%;
     height: 100vh;
     overflow-y: scroll;
-    background-color:black;
+    background-color:rgb(37, 37, 37); 
 }
 #sidebar {
     flex: 0 1 25%;

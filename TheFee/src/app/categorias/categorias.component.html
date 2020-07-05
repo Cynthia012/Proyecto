@@ -1,4 +1,6 @@
-<body>
+
+
+<body *ngIf="this.flagEnter">
   <!-- p-3 text-right -->
 
   <div class="card-columns" style="margin-top: 5px; background-color: black;">
@@ -30,7 +32,7 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-fab color="primary" (click)="btnClick()">
+        <button mat-fab color="primary" (click)="btnClick('medicina')">
           <mat-icon>east</mat-icon>
         </button>
       </mat-card-actions>
@@ -71,6 +73,7 @@
           mat-fab
           color="primary"
           aria-label="Example icon button with a delete icon"
+          (click)="btnClick('deporte')"
         >
           <mat-icon>east</mat-icon>
         </button>
