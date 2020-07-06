@@ -36,3 +36,15 @@ body{
     position: relative;
     top: -110px;
 }
+
+mat-card.post{
+    background-color: rgba(255, 255, 255, 0.096);
+} 
+
+@media screen and (max-width:700px){
+    body{
+        grid-template-areas: "h1"
+                             "s1"
+                             "h2"
+    }
+}

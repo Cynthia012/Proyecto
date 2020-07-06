@@ -45,6 +45,14 @@ body{
   color: rgb(248, 182, 0);
 }
 
+@media screen and (max-width:700px){
+    body{
+        grid-template-areas: "h1"
+                             "s1"
+                             "h2"
+    }
+}
+
 /*#princ{
     background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 51%, rgba(0,0,0,1) 100%);
     /*rgba(153,170,255,1)

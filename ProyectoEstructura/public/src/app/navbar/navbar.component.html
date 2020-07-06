@@ -20,12 +20,13 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
     <button
-      mat-button
+      mat-stroked-button
       color="primary"
       type="button"
       [routerLink]="['quejarse_aqui']"
+      class="ml-3"
     >
-      Quejas
+       Quejas 
     </button>
     <span class="spacer"></span>
     <div class="form-inline">
@@ -60,7 +61,7 @@
     Administador
   </button>
   <span class="example-spacer"></span>
-    <button color="accent" (click)="addToHomeScreen()">
+    <button  class="btn btn-outline-primary mr-3" color="accent" (click)="addToHomeScreen()">
       Instalar
     </button>
     <button

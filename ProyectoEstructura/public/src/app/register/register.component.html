@@ -1,4 +1,5 @@
-<form id="form_registro" #form_registro="ngForm" class="mx-auto card w-50 my-5 p-5" [formGroup]="grupo" (ngSubmit)="enviar()" novalidate>
+<div class="form-group row">
+<form id="form_registro" #form_registro="ngForm" class="mx-auto card w-50 my-5 p-5 form-row" [formGroup]="grupo" (ngSubmit)="enviar()" novalidate>
     <div class="form-group">                                                                                       
       <label for="exampleInputEmail1">Correo Electrónico</label>
       <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email"  [(ngModel)]="user.email" #email formControlName="email">
@@ -23,3 +24,4 @@
     <button type="submit  " class="btn btn-outline-primary" [disabled]='grupo.invalid' >Registrarse</button>
     <button type="button" class="btn btn-outline-dark" (click) = "back()">Regresar</button>
 </form>  
+</div>

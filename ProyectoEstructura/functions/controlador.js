@@ -43,7 +43,7 @@ const ctrlDatos = {
         res.json(await modelDatos.sendMail(user, queja));
     },
     getQuejas: async(req, res) => {
-        res.json(modelDatos.getQuejas);
+        res.json( modelDatos.getQuejas());
     },
     deleteQuejas: async(req, res) => {
         res.json(await modelDatos.deleteQuejas());
