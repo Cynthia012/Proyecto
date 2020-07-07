@@ -123,7 +123,8 @@ export class UsuarioComponent implements OnInit {
   recuperarMensajes(){
     if(!this.flagVer){
       this.mensajeservice.getMessages(this.selfUser).subscribe((data) =>{
-     this.mensajesList = data['mensajes'];
+        console.log("que tienes "+data['mensajes'][0]['mensaje'] );
+      this.mensajesList = data['mensajes'];
       this.flagVer = true;
      });
     }else{

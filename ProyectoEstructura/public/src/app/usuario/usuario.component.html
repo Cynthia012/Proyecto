@@ -66,7 +66,7 @@
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">                  
                   <div class="carousel-inner" >
                     <div class="carousel-item active" *ngFor="let mens of this.mensajesList; let i = index" [ngClass]="{'active' : i == 0}">
-                      <app-qr [info] = "mens"></app-qr>                      
+                      <app-qr [info] = "this.mensajesList[i]"></app-qr>                      
                     </div>
                   
                   </div>

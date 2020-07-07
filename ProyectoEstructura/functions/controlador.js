@@ -28,7 +28,9 @@ const ctrlDatos = {
     },
     getMessages: async (req, res) => {
         const { uid } = req.body;
-        res.json(await modelDatos.getMessages(uid));
+      //  var aux=await modelDatos.getMessages(uid)
+        console.log("hola ");
+       res.json(await modelDatos.getMessages(uid));
     },
     deletePost: async (req, res) => {
         const { idPost, categoria, idPost2, idAutor } = req.body;
