@@ -146,7 +146,6 @@ const modelDatos = {
                     for (const post in auxPosts) {
                         if (auxPosts.hasOwnProperty(post)) {
                             const element = auxPosts[post];
-                            console.log('post', post);
                             arrayPosts.push({
                                 autor: element.autor,
                                 id: element.id,
@@ -237,13 +236,13 @@ const modelDatos = {
                 else {
                     resolve({
                         succed: true,
-                        mensajes: arrayMessages,
-                        message: 'no hay posts'
+                        posts: arrayPosts,
+                        message: 'no hay mensajes'
                     });
                     return ({
                         succed: true,
-                        mensajes: arrayMessages,
-                        message: 'no hay posts'
+                        posts: arrayPosts,
+                        message: 'no hay mensajes'
                     });
                 }
             }).catch((err) => {
@@ -424,7 +423,7 @@ const modelDatos = {
                         error: err
                     });
                 });
-                return({success: false});
+                return ({ success: false });
             }).catch((err) => {
                 return ({
                     succed: false,
