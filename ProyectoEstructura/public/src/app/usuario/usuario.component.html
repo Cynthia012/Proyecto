@@ -1,6 +1,4 @@
 <body>
-    
-
     <section class="h1">
       <div><!-- Default dropright button -->
         <div class="btn-group dropright" >
@@ -18,8 +16,6 @@
                 <button mat-mini-fab color="primary" aria-label=" " (click)="continua()">
                   <mat-icon>pause</mat-icon>
                 </button>
-               
-      
           </div>
         </div>
       </div>
@@ -27,12 +23,8 @@
 
     
     <section class="h2">
-        <img class="usu" src="#"   alt=""> 
-        
+        <img class="usu" src="#"   alt="">    
     </section>
-
-    
-
     <section class="s1" id="esto">
       <div *ngIf="flagFormPhone">
         <label for="phone">Número de teléfono</label>
@@ -48,7 +40,6 @@
         <mat-card class="grid-item text-center" id = "princ">  
           <mat-card-header>
        <img mat-card-avatar src="../../assets/usu.png" alt="">
-  
               <mat-card-title class="grid-item text-center">{{this.usuario}}</mat-card-title>
               <a href="javascript:void(0)" *ngIf="this.phone === null && this.idUser === this.selfUser" style="color:lime" (click)="this.flagFormPhone = true">Añadir Número de teléfono</a>
               <mat-card-subtitle *ngIf="this.idUser !== this.selfUser"><button class="btn btn-outline-light mx-2">Seguir</button><button class="btn btn-outline-warning" (click)="this.flagMensaje=true">Mensaje Secreto</button></mat-card-subtitle>
@@ -114,16 +105,10 @@
                 </mat-card>
               </div>
             </mat-card-content>
-            <mat-card-actions>
-              
-              
+            <mat-card-actions>          
             </mat-card-actions>
           </mat-card> 
-        
-        
-
     </section>
-
 </body>
 
 

@@ -27,6 +27,7 @@ import { environment } from 'src/environments/environment';
 import { QrComponent } from './qr/qr.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MapaComponent } from './mapa/mapa.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AdminComponent,
     QuejaComponent,
     GetlogComponent,
-    QrComponent
+    QrComponent,
+    MapaComponent
   ],
   imports: [
     // FormsModule,

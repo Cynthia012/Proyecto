@@ -13,8 +13,10 @@ export const environment = {
     messagingSenderId: '178469236768',
     appId: '1:178469236768:web:67a178f56a6f5476dc0c45',
     measurementId: 'G-DZFYYRZ6Z1'
-  }
+  },
+  mapBoxToken: 'pk.eyJ1Ijoic3VyaWVkZWxnYWRvIiwiYSI6ImNrZ3ZiZHR3ODAxNTAyeW1zMXlnanNlOTUifQ.h53EC4TBI_DsQRkcGnKHlg'
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
