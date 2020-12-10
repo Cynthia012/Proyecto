@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "TheFee"
+  "defaultProject": "TheFee",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -12,18 +12,20 @@ import { from } from 'rxjs';
 import { AdminComponent } from './admin/admin.component';
 import { QuejaComponent } from './queja/queja.component';
 import { FullscreenOverlayContainer } from '@angular/cdk/overlay';
+import { MapaComponent } from './mapa/mapa.component';
 
 const routes: Routes = [
-
+  
   { path: 'theFee', component: PrincipalComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'categorias', component: CategoriasComponent },
   { path: 'navbar', component: NavbarComponent },
   { path: 'usuario/:id/:autor', component: UsuarioComponent },
+  { path: 'categorias', component: CategoriasComponent },
   { path: 'categoria1/:id', component: Categoria1Component },
   { path: 'admins', component: AdminComponent },
   { path: 'quejarse_aqui', component: QuejaComponent },
+  { path: 'mapa', component: MapaComponent },
   { path: '**', redirectTo: 'theFee' },
   { path: ' ', pathMatch: 'full', redirectTo: 'theFee' }
 ];

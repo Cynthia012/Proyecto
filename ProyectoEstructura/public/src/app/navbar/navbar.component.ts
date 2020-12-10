@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.afAuth.signOut().then(() => {
       // se cerro sesion, ocultar las pestanas
-      console.log('se serro sesion');
+      console.log('se cerro sesion');
 
 
       this.authService.updateUser();
