@@ -21,12 +21,16 @@ import { AuthService } from './auth.service';
 import { AdminComponent } from './admin/admin.component';
 import { QuejaComponent } from './queja/queja.component';
 import { GetlogComponent } from './getlog/getlog.component';
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { environment } from 'src/environments/environment';
 import { QrComponent } from './qr/qr.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AdminComponent,
     QuejaComponent,
     GetlogComponent,
-    QrComponent
+    QrComponent,
+    LoadingComponent
   ],
   imports: [
     // FormsModule,
@@ -55,6 +60,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     
   ],

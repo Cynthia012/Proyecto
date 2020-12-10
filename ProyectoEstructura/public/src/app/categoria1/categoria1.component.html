@@ -3,29 +3,19 @@
     <div>
       <!-- Default dropright button -->
       <div class="btn-group dropright">
-        <button
-          type="button"
-          class="btn btn-secondary dropdown-toggle"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
           <mat-icon>campaign</mat-icon>
         </button>
 
-        <div class="dropdown-menu" style="background-color: rgb(37, 37, 37);">
+        <div class="dropdown-menu" style="background-color: rgb(37, 37, 37)">
           <button mat-mini-fab color="primary" aria-label=" " (click)="play()">
             <mat-icon>play_circle_filled</mat-icon>
           </button>
           <button mat-mini-fab color="primary" aria-label=" " (click)="pausa()">
             <mat-icon>stop</mat-icon>
           </button>
-          <button
-            mat-mini-fab
-            color="primary"
-            aria-label=" "
-            (click)="continua()"
-          >
+          <button mat-mini-fab color="primary" aria-label=" " (click)="continua()">
             <mat-icon>pause</mat-icon>
           </button>
         </div>
@@ -38,9 +28,7 @@
   </section>
 
   <section class="s1" id="esto">
-    <mat-card
-      class="grid-item text-center"
-      style="
+    <mat-card class="grid-item text-center" style="
         background: -moz-linear-gradient(
           top,
           rgba(5, 0, 5, 1) 0%,
@@ -48,8 +36,7 @@
           rgba(250, 168, 168, 1) 51%,
           rgba(0, 0, 0, 1) 100%
         );
-      "
-    >
+      ">
       <mat-card-header>
         <mat-card-title>{{ idCategoria }}</mat-card-title>
         <mat-card-subtitle>publicaciones</mat-card-subtitle>
@@ -65,19 +52,12 @@
             <mat-card-content>
               <div>
                 <div class="form-group">
-                  <textarea
-                    [(ngModel)]="mensaje"
-                    class="form-control"
-                    rows="5"
-                    id="comment"
-                  ></textarea>
-                  <button
-                    (click)="addPost()"
-                    mat-raised-button
-                    color="primary"
-                    style="text-align: left;"
-                  >
+                  <textarea [(ngModel)]="mensaje" class="form-control" rows="5" id="comment"></textarea>
+                  <button (click)="addPost()" mat-raised-button color="primary" style="text-align: left">
                     Publicar
+                  </button>
+                  <button class="my-auto" type="button" mat-raised-button color="primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Sube tu Foto
                   </button>
                 </div>
               </div>
@@ -89,13 +69,8 @@
         <mat-card class="grid-item text-center post">
           <mat-card-header>
             <img mat-card-avatar src="../../assets/usu.png" alt="" />
-            <mat-card-title
-              ><a
-                href="javascript:void(0)"
-                (click)="goToUser(post.id, post.autor)"
-                >{{ post.autor }}</a
-              ></mat-card-title
-            >
+            <mat-card-title><a href="javascript:void(0)" (click)="goToUser(post.id, post.autor)">{{ post.autor }}</a>
+            </mat-card-title>
             <mat-card-subtitle>{{ post.fecha }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
@@ -108,6 +83,43 @@
     </mat-card>
   </section>
 </body>
-
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalCenterTitle">
+              <label class="my-auto" for="Descripcion">Escribenos un comentario y sube tu foto!</label>
+            </h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row mx-auto text-center my-4">
+                <input type="file" name="postFoto" (change)="fileProgress($event)" id="postFoto" />
+              </div>
+              <div class="image-preview row mx-auto text-center my-1" *ngIf="previewUrl">
+                <p class="text-secondary col-12 mb-3">Foto seleccionada</p>
+                <br>
+                <img [src]="previewUrl" class="w-100 mx-auto col-12 col-lg-10 col-xl-12 align-items-center" />
+              </div>
+              <div class="row mx-auto align-items-center text-center my-3">
+                <textarea class="mx-auto" name="Descripcion" id="Descripcion" [(ngModel)]="descripcion" cols="30"
+                  rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+          <app-loading *ngIf="this.modalLoading" class="mb-3"></app-loading>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button (click)="addPost()" type="button" class="btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 <!-- kfvjnfj
 <img class="usu" src="../../assets/cat/info.jpg"   alt=""> -->
