@@ -28,16 +28,10 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from 'src/environments/environment';
 import { QrComponent } from './qr/qr.component';
-<<<<<<< HEAD
-import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { LoadingComponent } from './loading/loading.component';
-=======
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MapaComponent } from './mapa/mapa.component';
->>>>>>> 29de803b9b7971c56683c1856ff5a893d4cc6227
-
+import { LoadingComponent } from './loading/loading.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,12 +46,9 @@ import { MapaComponent } from './mapa/mapa.component';
     QuejaComponent,
     GetlogComponent,
     QrComponent,
-<<<<<<< HEAD
+    MapaComponent,
     LoadingComponent
-=======
-    MapaComponent
->>>>>>> 29de803b9b7971c56683c1856ff5a893d4cc6227
-  ],
+    ],
   imports: [
     // FormsModule,
     NgxQRCodeModule,
