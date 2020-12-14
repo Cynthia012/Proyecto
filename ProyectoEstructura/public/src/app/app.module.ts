@@ -31,15 +31,9 @@ import { QrComponent } from './qr/qr.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MapaComponent } from './mapa/mapa.component';
-<<<<<<< HEAD
-
-//
 import { UbicacionService } from './services/ubicacion.service';
-
-
-=======
 import { LoadingComponent } from './loading/loading.component';
->>>>>>> 4bf689049f56b7b1ef83e88b5b2af650fa39524e
+
 @NgModule({
   declarations: [
     AppComponent,

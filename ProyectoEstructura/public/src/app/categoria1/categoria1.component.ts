@@ -116,8 +116,9 @@ export class Categoria1Component implements OnDestroy {
 */
 addPost() {
   this.modalLoading = true;
-  this.postService.sendPost(this.user, this.fileData, this.descripcion);
+  this.postService.sendPost(this.user, this.fileData, this.descripcion, this.idCategoria);
   this.postService._subirPost.pipe(takeUntil(this.stop$)).subscribe((data: any) => {
+    console.log(data);
     if (data && data.success) {
       if (data.status === 'escrito en base de datos'){
         swal.fire({

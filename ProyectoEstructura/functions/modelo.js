@@ -26,10 +26,50 @@ const modelDatos = {
             return ({ message: "OK" });
         //});
     },
-    addPostWithImage(uid, descripcion, urlImagen, nombreFoto) {
+    addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria) {
         return new Promise((resolve, reject) => {
             const fecha = new Date();
-                firebase.database().ref(`users/${uid}/imagenes/`).push().set({
+                firebase.database().ref(`users/${uid}/imagenes/`).push({
+                    refFoto: urlImagen,
+                    mensaje,
+                    fecha: fecha.toDateString(),
+                    likes: 0,
+                    nombreFoto
+                }).then(() => {
+                    firebase.database().ref(`categorias/${categoria}`).push().set({
+                        autor: autor,
+                        mensaje: mensaje,
+                        fecha: fecha,
+                        id: uid,
+                        refFoto: urlImagen
+                    }).then(() => {
+                        console.log("si se pudo");
+                        resolve({ success: true, status: 'escrito en base de datos' });
+                        return;
+                    }).catch(() => {
+                        console.log("no se pudo");
+                        resolve({ success: false, status: 'no se escribio en la bd' });
+                        return;
+                    });
+                    return;
+                }).catch((err) => {
+                    resolve({ success: false, error: err.message });
+                    return;
+                });
+                return;
+        });
+    },
+    /*addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria) {
+        return new Promise((resolve, reject) => {
+            const fecha = new Date();
+            firebase.database().ref('categorias/' + categoria).push().set({
+                autor: autor,
+                mensaje: mensaje,
+                fecha: fecha,
+                id: uid,
+                refFoto: urlImagen
+            }).then(() => {
+                firebase.database().ref(`users/${uid}/imagenes/`).push({
                     refFoto: urlImagen,
                     descripcion,
                     fecha: fecha.toDateString(),
@@ -43,8 +83,14 @@ const modelDatos = {
                     return;
                 });
                 return;
+            }).catch((err) => {
+                return ({
+                    succed1: false,
+                    error: err
+                });
+            });
         });
-    },
+    },*/
     addUser(nombre, foto, fecha, uid) {
         return new Promise((resolve, reject) => {
             firebase.database().ref('users/' + uid).set({

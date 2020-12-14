@@ -29,7 +29,7 @@ export class PostServiceService {
     });
   }
 
-  sendPost(user, fileData, descripcion) {
+  sendPost(user, fileData, descripcion, categoria) {
     // Create the file metadata
     const fecha = new Date();
     const metadata = {
@@ -53,12 +53,15 @@ export class PostServiceService {
       }, () => {
         // Upload completed successfully, now we can get the download URL
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          console.log("se subio")
             const nombreFoto = 'imagenesPostsPrincipales' + user.uid + fileData.name;
             const body = new HttpParams()
               .set('uid', user.uid)
-              .set('descripcion', descripcion)
+              .set('mensaje', descripcion)
               .set('urlImagen', downloadURL)
-              .set('nombreFoto', nombreFoto);
+              .set('nombreFoto', nombreFoto)
+              .set('autor',user.displayName)
+              .set('categoria', categoria);
             this.http.post(this.urlapi + 'addPostWithImage', body.toString(), {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/x-www-form-urlencoded')

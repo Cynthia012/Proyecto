@@ -15,8 +15,8 @@ const ctrlDatos = {
         res.json(await modelDatos.addPost(uid, autor, mensaje, categoria, fecha))
     },
     addPostWithImage: async (req, res) => {
-        const { uid, descripcion, urlImagen, nombreFoto} = req.body;
-        res.json(await modelDatos.addPostWithImage(uid, descripcion, urlImagen, nombreFoto));
+        const { uid, mensaje, urlImagen, nombreFoto, autor, categoria} = req.body;
+        res.json(await modelDatos.addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria));
     },
     getPosts: async (req, res) => {
         const { categoria } = req.body;
