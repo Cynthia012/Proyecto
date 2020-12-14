@@ -29,6 +29,10 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MapaComponent } from './mapa/mapa.component';
 
+//
+import { UbicacionService } from './services/ubicacion.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +64,7 @@ import { MapaComponent } from './mapa/mapa.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     
   ],
-  providers: [AuthService, LoginComponent],
+  providers: [AuthService, LoginComponent, UbicacionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
