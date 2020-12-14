@@ -1,17 +1,19 @@
 import { PostServiceService } from "./../services/post-service.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Router, ActivatedRoute } from "@angular/router";
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit, NgZone, OnDestroy } from "@angular/core";
 import swal from "sweetalert2";
 //lector
 import Speech from "speak-tts"; //importamos la librería
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: "app-categoria1",
   templateUrl: "./categoria1.component.html",
   styleUrls: ["./categoria1.component.css"],
 })
-export class Categoria1Component implements OnInit {
+export class Categoria1Component implements OnDestroy {
   idCategoria: string;
   mensaje: string;
   lecFinal = ""; //variable en donde guardaremos lo que se va a leer al final
@@ -19,6 +21,12 @@ export class Categoria1Component implements OnInit {
   user: any;
   nombre: string;
   posts: [] = [];
+  descripcion = '';
+  fileData: any;
+  previewUrl: any = null;
+  modalLoading = false;
+  stop$: any;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -26,6 +34,7 @@ export class Categoria1Component implements OnInit {
     private ngZone: NgZone,
     private postService: PostServiceService
   ) {
+    this.stop$ = new Subject<void>();
     this.afAuth.onAuthStateChanged((user) => {
       this.ngZone.run(() => {
         if (!user) {
@@ -35,6 +44,7 @@ export class Categoria1Component implements OnInit {
             this.idCategoria = params.id;
           });
           this.user = user;
+          console.log(user)
           this.reloadPosts();
         }
       });
@@ -45,7 +55,7 @@ export class Categoria1Component implements OnInit {
 
     if (this.speech.hasBrowserSupport()) {
       //si es soportado en nuestro navegador entra
-      console.log("speech synthesis supported");
+      //console.log("speech synthesis supported");
       //inicializamos nuestro speech
       this.speech
         .init({
@@ -57,15 +67,15 @@ export class Categoria1Component implements OnInit {
           splitSentences: true,
           listeners: {
             onvoiceschanged: (voices) => {
-              console.log("Event voiceschanged", voices);
+              //console.log("Event voiceschanged", voices);
             },
           },
         })
         .then((data) => {
           //data contiene una lista de voces
-          console.log("Speech está listo", data);
+          //console.log("Speech está listo", data);
           data.voices.forEach((voice) => {
-            console.log(voice.name + " " + voice.lang);
+            //console.log(voice.name + " " + voice.lang);
           });
         })
         .catch((e) => {
@@ -73,7 +83,7 @@ export class Categoria1Component implements OnInit {
         });
     } //fin if
   }
-
+/*
   addPost() {
     let fecha = new Date();
     // tslint:disable-next-line: max-line-length
@@ -103,7 +113,24 @@ export class Categoria1Component implements OnInit {
         }
       });
   }
-
+*/
+addPost() {
+  this.modalLoading = true;
+  this.postService.sendPost(this.user, this.fileData, this.descripcion);
+  this.postService._subirPost.pipe(takeUntil(this.stop$)).subscribe((data: any) => {
+    if (data && data.success) {
+      if (data.status === 'escrito en base de datos'){
+        swal.fire({
+          title: 'Listo!',
+          text: 'Se ha subido correctamente!',
+          icon: 'success'
+        });
+        this.reloadPosts()
+      }
+      this.modalLoading = false;
+    }
+  });
+}
   // botones de lector
   play() {
     var textoLeer = document.createElement("div"); //guardamos lo que queremos que lea en la sig variable
@@ -140,5 +167,22 @@ export class Categoria1Component implements OnInit {
       this.posts = data.posts;
     });
   }
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.stop$.next();
+    this.stop$.complete();
+  }
+  fileProgress(fileInput: any) {
+    this.fileData = (fileInput.target.files[0] as File);
+    // Show preview
+    let mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
 }

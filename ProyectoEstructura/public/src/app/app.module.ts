@@ -21,18 +21,25 @@ import { AuthService } from './auth.service';
 import { AdminComponent } from './admin/admin.component';
 import { QuejaComponent } from './queja/queja.component';
 import { GetlogComponent } from './getlog/getlog.component';
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { environment } from 'src/environments/environment';
 import { QrComponent } from './qr/qr.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MapaComponent } from './mapa/mapa.component';
+<<<<<<< HEAD
 
 //
 import { UbicacionService } from './services/ubicacion.service';
 
 
+=======
+import { LoadingComponent } from './loading/loading.component';
+>>>>>>> 4bf689049f56b7b1ef83e88b5b2af650fa39524e
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,8 +54,9 @@ import { UbicacionService } from './services/ubicacion.service';
     QuejaComponent,
     GetlogComponent,
     QrComponent,
-    MapaComponent
-  ],
+    MapaComponent,
+    LoadingComponent
+    ],
   imports: [
     // FormsModule,
     NgxQRCodeModule,
@@ -61,6 +69,7 @@ import { UbicacionService } from './services/ubicacion.service';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     
   ],

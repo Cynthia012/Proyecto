@@ -8,6 +8,8 @@ router.post('/addUser', ctrlDatos.addUser);
 
 router.post('/addPost', ctrlDatos.addPost);
 
+router.post('/addPostWithImage', ctrlDatos.addPostWithImage);
+
 router.post('/getPosts', ctrlDatos.getPosts);
 
 router.post('/getMyPosts', ctrlDatos.getMyPosts)

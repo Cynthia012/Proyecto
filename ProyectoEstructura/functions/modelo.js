@@ -26,6 +26,25 @@ const modelDatos = {
             return ({ message: "OK" });
         //});
     },
+    addPostWithImage(uid, descripcion, urlImagen, nombreFoto) {
+        return new Promise((resolve, reject) => {
+            const fecha = new Date();
+                firebase.database().ref(`users/${uid}/imagenes/`).push().set({
+                    refFoto: urlImagen,
+                    descripcion,
+                    fecha: fecha.toDateString(),
+                    likes: 0,
+                    nombreFoto
+                }).then(() => {
+                    resolve({ success: true, status: 'escrito en base de datos' });
+                    return;
+                }).catch((err) => {
+                    resolve({ success: false, error: err });
+                    return;
+                });
+                return;
+        });
+    },
     addUser(nombre, foto, fecha, uid) {
         return new Promise((resolve, reject) => {
             firebase.database().ref('users/' + uid).set({

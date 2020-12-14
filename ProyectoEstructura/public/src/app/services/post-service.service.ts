@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams   } from '@angular/common/http';
+import * as firebase from 'firebase/app';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PostServiceService {
-  urlapi: string = 'https://us-central1-thefeeuaa.cloudfunctions.net/app/';
-  constructor(private http: HttpClient) { }
+  urlapi: string = 'http://localhost:5001/thefeeuaa/us-central1/app/';
+  private $subirPost: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  // tslint:disable-next-line: variable-name
+  _subirPost: Observable<any> = this.$subirPost.asObservable();
+
+  constructor(private http: HttpClient,private afCS: AngularFireStorage) { }
 
   addPost(uid: any, autor: string, mensaje: string, categoria: string, fecha: string){
     const body = new HttpParams()
@@ -21,7 +29,48 @@ export class PostServiceService {
     });
   }
 
+  sendPost(user, fileData, descripcion) {
+    // Create the file metadata
+    const fecha = new Date();
+    const metadata = {
+      contentType: 'image/jpeg'
+    };
+    const imgRef = this.afCS.storage.ref(`imagenesPublicadas/${user.uid}/${fileData.name}`);
+    const uploadTask = imgRef.put(fileData, metadata);
+
+    // Listen for state changes, errors, and completion of the upload.
+    return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            break;
+        }
+      }, (error: any) => {
+        return ({ succes: false, error });
+      }, () => {
+        // Upload completed successfully, now we can get the download URL
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            const nombreFoto = 'imagenesPostsPrincipales' + user.uid + fileData.name;
+            const body = new HttpParams()
+              .set('uid', user.uid)
+              .set('descripcion', descripcion)
+              .set('urlImagen', downloadURL)
+              .set('nombreFoto', nombreFoto);
+            this.http.post(this.urlapi + 'addPostWithImage', body.toString(), {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/x-www-form-urlencoded')
+            }).subscribe((data) => {
+              this.$subirPost.next(data);
+            });
+        });
+      });
+  }
+
   getPosts(categoria: string) {
+    console.log(categoria)
     const body = new HttpParams()
     .set('categoria', categoria);
 
