@@ -47,7 +47,9 @@ goto(): void{
 save(): void{
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(position => { 
-      this.map.saveUbication(position.coords.latitude.toString(), position.coords.longitude.toString(),this.user.uid);
+      this.map.sendUbication(position.coords.latitude.toString(), position.coords.longitude.toString(),this.user.uid).subscribe(res =>{
+        console.log(res);
+      });
     });
 } else { /* geolocation IS NOT available, handle it */ }
   

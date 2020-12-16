@@ -4,12 +4,13 @@ import * as mapboxgl from 'mapbox-gl';
 import { from } from 'rxjs';
 import { Ubicacion } from 'src/app/models/ubicacion';
 import {UbicacionService } from '../app/services/ubicacion.service'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-
+  baseUrl="http://localhost:3000/";
   mapbox = (mapboxgl as typeof mapboxgl);
   map: mapboxgl.Map;
   style = `mapbox://styles/mapbox/satellite-v9`;
@@ -21,7 +22,7 @@ export class MapService {
   lati: String; 
   user: String;
   key: String;
-  constructor(private ubicacionService: UbicacionService) { 
+  constructor(private ubicacionService: UbicacionService, private http: HttpClient) { 
     this.long = ubicacionService.selectedUbicacion.longitud;
     this.lati = ubicacionService.selectedUbicacion.latitud;
     this.user = ubicacionService.selectedUbicacion.usuario;
@@ -41,21 +42,15 @@ export class MapService {
     this.map.addControl(new mapboxgl.NavigationControl());
   }
 
-  saveUbication(lat:String, long:String, usuario:String){
-    let  objetoUbicacion=new Ubicacion();
-    objetoUbicacion.usuario=usuario;
-    objetoUbicacion.longitud=long;
-    objetoUbicacion.latitud=lat;
-      
-    console.log("holaaa"+ lat+ " "+ long +" "+ usuario);
-
-///insertar y actualizar
-this.ubicacionService.insertUbicacion(objetoUbicacion)
-//  this.ubicacionService.updateUbicacion(objetoUbicacion)
-
-//  this.resetForm(ubicacionform);
-
-
+  sendUbication(lat:string, long:string, usuario:string){
+    let body= new HttpParams()
+    .set("user", usuario)
+    .set("lat", lat)
+    .set("long", long)
+    return this.http.post(this.baseUrl+"sendUbication",body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type','application/x-www-form-urlencoded')
+    });
   }
 /*
   resetForm(ubicacionform?: NgForm){

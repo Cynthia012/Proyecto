@@ -10,6 +10,7 @@ app.use(cors());
 app.use(bodyParse.urlencoded ({extended: false}));
 app.use(bodyParse.json());
 app.use('/', rutas);
+
 app.listen('3000', function () {
     console.log('Servidor web escuchando en el puerto 3000');
   });
