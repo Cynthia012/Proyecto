@@ -13,6 +13,7 @@ const firebaseConfig = {
 }
 
 //conection BD
+/*
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -21,7 +22,7 @@ var connection = mysql.createConnection({
   database : 'bdredes'
 }); 
 connection.connect();
-
+*/
 firebase.initializeApp(firebaseConfig);
 
 const quejas = [];
@@ -36,14 +37,14 @@ const modelDatos = {
             return ({ message: "OK" });
         //});
     },
-    addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria) {
+    addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria, fecha) {
         return new Promise((resolve, reject) => {
-            const fecha = new Date();
                 firebase.database().ref(`users/${uid}/imagenes/`).push({
                     refFoto: urlImagen,
                     mensaje,
-                    fecha: fecha.toDateString(),
+                    fecha: fecha,
                     likes: 0,
+                    fecha,
                     nombreFoto
                 }).then(() => {
                     firebase.database().ref(`categorias/${categoria}`).push().set({
@@ -176,7 +177,8 @@ const modelDatos = {
                                 fecha: element.fecha,
                                 mensaje: element.mensaje,
                                 id: element.id,
-                                idPost: post
+                                idPost: post,
+                                refFoto: element.refFoto
                             });
                         }
                     }
@@ -506,7 +508,8 @@ const modelDatos = {
                 });
             });
         });
-    },
+    }
+    /*
     sendUbication(user, lat, long){
      return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO ubicacion VALUES (null,"${user}","${lat}","${long}")`, 
@@ -531,7 +534,7 @@ const modelDatos = {
                 return ({success: true,results});
         })
       });
-    }
+    }*/
 }
 
 module.exports = modelDatos;

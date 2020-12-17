@@ -29,10 +29,10 @@ router.post('/getQuejas', ctrlDatos.getQuejas);
 router.post('/deleteQuejas', ctrlDatos.deleteQuejas);
 
 router.post('/getAllPosts', ctrlDatos.getAllPosts);
-
+/*
 router.post('/sendUbication', ctrlDatos.sendUbication);
 
 router.post('/getUbications', ctrlDatos.getUbications);
-
+*/
 
 module.exports = router;

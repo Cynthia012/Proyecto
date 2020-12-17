@@ -73,6 +73,9 @@
             </mat-card-title>
             <mat-card-subtitle>{{ post.fecha }}</mat-card-subtitle>
           </mat-card-header>
+          <ng-container *ngIf="post.refFoto">
+            <img mat-card-image alt="texto alternativo" class="mat-card-image" [src]="post.refFoto" style="width: 20rem;">
+          </ng-container>
           <mat-card-content>
             <div id="esto">
               {{ post.mensaje }}

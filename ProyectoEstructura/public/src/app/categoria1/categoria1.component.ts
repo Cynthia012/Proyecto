@@ -116,7 +116,8 @@ export class Categoria1Component implements OnDestroy {
 */
 addPost() {
   this.modalLoading = true;
-  this.postService.sendPost(this.user, this.fileData, this.descripcion, this.idCategoria);
+  let fecha = new Date();
+  this.postService.sendPost(this.user, this.fileData, this.descripcion, this.idCategoria, fecha.toString());
   this.postService._subirPost.pipe(takeUntil(this.stop$)).subscribe((data: any) => {
     console.log(data);
     if (data && data.success) {
@@ -166,6 +167,7 @@ addPost() {
   reloadPosts(){
     this.postService.getPosts(this.idCategoria).subscribe((data: any) => {
       this.posts = data.posts;
+      console.log(data.posts)
     });
   }
   ngOnDestroy(): void {
