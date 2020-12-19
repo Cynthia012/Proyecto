@@ -3,6 +3,7 @@ import { MapService } from '../map.service';
 import * as mapboxgl from 'mapbox-gl';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -47,14 +48,42 @@ goto(): void{
 save(): void{
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(position => { 
-      this.map.sendUbication(position.coords.latitude.toString(), position.coords.longitude.toString(),this.user.uid).subscribe(res =>{
-        console.log(res);
+      this.map.sendUbication(position.coords.latitude.toString(), position.coords.longitude.toString(),this.user.displayName).subscribe(res =>{
+        if(res=="OK"){
+          Swal.fire(
+            'Ubicación registrada con éxito',
+            '',
+            'success'
+          )
+        }
       });
     });
 } else { /* geolocation IS NOT available, handle it */ }
   
  }
- 
+
+ mostrar(): void{
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(position => { 
+      this.map.getUbication(position.coords.latitude.toString(), position.coords.longitude.toString()).subscribe(res =>{
+        console.log(res);
+        for(let el in res){
+          var popup = new mapboxgl.Popup()
+          .setText(res[el]['usuario'])
+          .addTo(this.map.map);
+
+          this.map.map.setCenter([position.coords.longitude,position.coords.latitude]);
+          let marker = new mapboxgl.Marker()
+          .setPopup(popup)
+          .setLngLat([res[el]['longitud'],res[el]['latitud']])
+          .addTo(this.map.map)
+           
+        }
+      });
+    });
+} else { /* geolocation IS NOT available, handle it */ }
+  
+ }
 
 }
 

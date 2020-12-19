@@ -52,6 +52,16 @@ export class MapService {
       .set('Content-Type','application/x-www-form-urlencoded')
     });
   }
+
+  getUbication(lat:string, long:string){
+    let body= new HttpParams()
+    .set("lat", lat)
+    .set("long", long)
+    return this.http.post(this.baseUrl+"getUbications",body.toString(),{
+      headers: new HttpHeaders()
+      .set('Content-Type','application/x-www-form-urlencoded')
+    });
+  }
 /*
   resetForm(ubicacionform?: NgForm){
       if (ubicacionform != null){

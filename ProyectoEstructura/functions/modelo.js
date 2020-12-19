@@ -508,33 +508,44 @@ const modelDatos = {
                 });
             });
         });
-    }
-    /*
-    sendUbication(user, lat, long){
-     return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO ubicacion VALUES (null,"${user}","${lat}","${long}")`, 
-        function(error, results){
-                resolve('OK');
-                console.log('dsfsd');
-                return ({success: true,results});
-        })
-      });
     },
-    getUbications( lat, long){
-        console.log((parseFloat(lat,10)+1)+" "+(parseFloat(long,10)+1));
-        console.log(lat+" "+long);
-        console.log(`SELECT * FROM ubicacion WHERE cast(latitud as DECIMAL(10,7)) < (${parseFloat(lat,10)+0.1}) AND cast(longitud as DECIMAL(10,7)) > (${parseFloat(long,10)-0.1}) AND cast(latitud as DECIMAL(10,7)) > (${parseFloat(lat,10)}) AND cast(longitud as DECIMAL(10,7)) < (${parseFloat(long,10)}) `);
-
-     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM ubicacion WHERE cast(latitud as DECIMAL(10,7)) < (${parseFloat(lat,10)+0.1}) AND cast(longitud as DECIMAL(10,7)) > (${parseFloat(long,10)-0.1}) AND cast(latitud as DECIMAL(10,7)) > (${parseFloat(lat,10)}) AND cast(longitud as DECIMAL(10,7)) < (${parseFloat(long,10)}) `, 
-        function(error, results){
-                //SELECT * FROM ubicacion WHERE cast(latitud as signed) < (21.928821600000003+20) AND cast(longitud as signed) < (-102.28530920000001-20)
-                console.log(results);
-                resolve(results);
-                return ({success: true,results});
-        })
-      });
-    }*/
+    getUserById(uid) {
+        return new Promise((resolve, reject) => {
+            let auxMessage;
+            let arrayMessages = [];
+            firebase.database().ref('users/' + uid).once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                   
+                    resolve({
+                        succed: true,
+                        usuario: snapshot
+                    });
+                    return ({
+                        succed: true,
+                        usuario: snapshot
+                    });
+                }
+                else {
+                    resolve({
+                        succed: true,
+                        posts: arrayPosts,
+                        message: 'no hay mensajes'
+                    });
+                    return ({
+                        succed: true,
+                        posts: arrayPosts,
+                        message: 'no hay mensajes'
+                    });
+                }
+            }).catch((err) => {
+                return ({
+                    succed: false,
+                    error: err
+                });
+            });
+        });
+    },
+    
 }
 
 module.exports = modelDatos;

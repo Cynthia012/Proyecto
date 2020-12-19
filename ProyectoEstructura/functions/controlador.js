@@ -56,7 +56,10 @@ const ctrlDatos = {
     },
     getAllPosts: async(req, res) => {
         res.json(await modelDatos.getAllPosts());
-    }
+    },
+    getUserById: async(req, res) => {
+        res.json(await modelDatos.getUserById(req.body.user));
+    },
     /*,
     sendUbication: async(req, res) => {
         const { user, lat, long } = req.body;

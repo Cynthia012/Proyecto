@@ -29,6 +29,8 @@ router.post('/getQuejas', ctrlDatos.getQuejas);
 router.post('/deleteQuejas', ctrlDatos.deleteQuejas);
 
 router.post('/getAllPosts', ctrlDatos.getAllPosts);
+
+router.post('/getUserById', ctrlDatos.getUserById);
 /*
 router.post('/sendUbication', ctrlDatos.sendUbication);
 
