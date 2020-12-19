@@ -31,6 +31,9 @@ router.post('/deleteQuejas', ctrlDatos.deleteQuejas);
 router.post('/getAllPosts', ctrlDatos.getAllPosts);
 
 router.post('/getUserById', ctrlDatos.getUserById);
+
+router.post('/updateFotoPerfil', ctrlDatos.updateFotoPerfil);
+
 /*
 router.post('/sendUbication', ctrlDatos.sendUbication);
 

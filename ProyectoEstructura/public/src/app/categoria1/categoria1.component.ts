@@ -117,7 +117,7 @@ export class Categoria1Component implements OnDestroy {
 addPost() {
   this.modalLoading = true;
   let fecha = new Date();
-  this.postService.sendPost(this.user, this.fileData, this.descripcion, this.idCategoria, fecha.toString());
+  this.postService.sendPost(this.user, this.fileData, this.descripcion, this.idCategoria, fecha.toDateString(), this.user.photoURL);
   this.postService._subirPost.pipe(takeUntil(this.stop$)).subscribe((data: any) => {
     console.log(data);
     if (data && data.success) {

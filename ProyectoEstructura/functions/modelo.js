@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const firebase = require('firebase/app');
+const functions = require('firebase-functions');
 require('firebase/database');
 const firebaseConfig = {
     apiKey: "AIzaSyBkRw4G5HvvRUBYB4jMvpRTDNKkN_jAwYI",
@@ -37,22 +38,24 @@ const modelDatos = {
             return ({ message: "OK" });
         //});
     },
-    addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria, fecha) {
+    addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria, fecha, userFotoPerfil) {
         return new Promise((resolve, reject) => {
-                firebase.database().ref(`users/${uid}/imagenes/`).push({
+                firebase.database().ref(`users/${uid}/posts/`).push({
                     refFoto: urlImagen,
                     mensaje,
-                    fecha: fecha,
-                    likes: 0,
                     fecha,
-                    nombreFoto
+                    autor: autor,
+                    categoria: categoria,
+                    id: uid,
+                    userFotoPerfil
                 }).then(() => {
                     firebase.database().ref(`categorias/${categoria}`).push().set({
                         autor: autor,
                         mensaje: mensaje,
                         fecha: fecha,
                         id: uid,
-                        refFoto: urlImagen
+                        refFoto: urlImagen,
+                        userFotoPerfil
                     }).then(() => {
                         console.log("si se pudo");
                         resolve({ success: true, status: 'escrito en base de datos' });
@@ -178,7 +181,8 @@ const modelDatos = {
                                 mensaje: element.mensaje,
                                 id: element.id,
                                 idPost: post,
-                                refFoto: element.refFoto
+                                refFoto: element.refFoto,
+                                userFotoPerfil: element.userFotoPerfil
                             });
                         }
                     }
@@ -220,16 +224,22 @@ const modelDatos = {
                 if (snapshot.exists()) {
                     arrayPosts = [];
                     auxPosts = snapshot.val();
+                    console.log(snapshot)
+                    functions.logger.log(snapshot);
                     for (const post in auxPosts) {
                         if (auxPosts.hasOwnProperty(post)) {
                             const element = auxPosts[post];
+                            console.log(element.autor);
+                            functions.logger.log(element.autor);
                             arrayPosts.push({
                                 autor: element.autor,
                                 id: element.id,
                                 fecha: element.fecha,
                                 mensaje: element.mensaje,
                                 categoria: element.categoria,
-                                postId: post
+                                postId: post,
+                                userFotoPerfil: element.userFotoPerfil,
+                                refFoto: element.refFoto
                             });
                         }
                     }
@@ -515,7 +525,7 @@ const modelDatos = {
             let arrayMessages = [];
             firebase.database().ref('users/' + uid).once('value').then((snapshot) => {
                 if (snapshot.exists()) {
-                   
+                   snapshot = snapshot.val();
                     resolve({
                         succed: true,
                         usuario: snapshot
@@ -545,6 +555,26 @@ const modelDatos = {
             });
         });
     },
+    updateFotoPerfil(uid, urlImagen){
+        return new Promise((resolve, reject) => {
+            firebase.database().ref(`/users/${uid}`).once('value').then((data) => {
+                var newData = data.val();
+                newData.fotoURL = urlImagen
+                var updates = {};
+                updates[`/users/${uid}`] = newData
+                firebase.database().ref().update(updates).then(() => {
+                    resolve({success: true, fotoURL: urlImagen})
+                    return({success: true, fotoURL: urlImagen})
+                }).catch((e) => {
+                    resolve({success: false, error: e.message})
+                    return({success: false})
+                });
+            }).catch((e) => {
+                resolve({succes: false, error: e.message})
+                return({succes: false, error: e.message})
+            });
+        });
+    }
     
 }
 

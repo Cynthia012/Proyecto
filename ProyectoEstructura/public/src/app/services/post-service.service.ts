@@ -29,7 +29,7 @@ export class PostServiceService {
     });
   }
 
-  sendPost(user, fileData, descripcion: string, categoria: string, fecha: string) {
+  sendPost(user, fileData, descripcion: string, categoria: string, fecha: string, userPhotoURL: string) {
     // Create the file metadata
     const metadata = {
       contentType: 'image/jpeg'
@@ -61,7 +61,8 @@ export class PostServiceService {
               .set('nombreFoto', nombreFoto)
               .set('autor',user.displayName)
               .set('categoria', categoria)
-              .set('fecha',fecha);
+              .set('fecha',fecha)
+              .set('userFotoPerfil', userPhotoURL);
             this.http.post(this.urlapi + 'addPostWithImage', body.toString(), {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -150,6 +151,58 @@ return new Promise((resolve,reject) => {
         }
       });
   
+    });
+  }
+
+  updateFotoPerfil(user: firebase.User, fileData){
+    var userUID = user.uid
+    // Create the file metadata
+    const metadata = {
+      contentType: 'image/jpeg'
+    };
+    const imgRef = this.afCS.storage.ref(`fotoDePerfil/${userUID}/${fileData.name}`);
+    const uploadTask = imgRef.put(fileData, metadata);
+
+    // Listen for state changes, errors, and completion of the upload.
+    return uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        switch (snapshot.state) {
+          case firebase.storage.TaskState.PAUSED: // or 'paused'
+            break;
+          case firebase.storage.TaskState.RUNNING: // or 'running'
+            break;
+        }
+      }, (error: any) => {
+        return ({ succes: false, error });
+      }, () => {
+        // Upload completed successfully, now we can get the download URL
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            const body = new HttpParams()
+              .set('uid', userUID)
+              .set('urlImagen', downloadURL)
+            this.http.post(this.urlapi + 'updateFotoPerfil', body.toString(), {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/x-www-form-urlencoded')
+            }).subscribe((data) => {
+              user.updateProfile({
+                photoURL: downloadURL
+              }).then(() => {
+                console.log("foto de perfil actualizada")
+              })
+              this.$subirPost.next(data);
+            });
+        });
+      });
+  }
+
+  getUserByID(uid){
+    const body = new HttpParams()
+    .set('user', uid);
+
+    return this.http.post(this.urlapi + 'getUserById', body.toString(), {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
 }

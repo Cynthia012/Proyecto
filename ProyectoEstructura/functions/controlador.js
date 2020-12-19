@@ -15,8 +15,8 @@ const ctrlDatos = {
         res.json(await modelDatos.addPost(uid, autor, mensaje, categoria, fecha))
     },
     addPostWithImage: async (req, res) => {
-        const { uid, mensaje, urlImagen, nombreFoto, autor, categoria, fecha} = req.body;
-        res.json(await modelDatos.addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria,fecha));
+        const { uid, mensaje, urlImagen, nombreFoto, autor, categoria, fecha, userFotoPerfil} = req.body;
+        res.json(await modelDatos.addPostWithImage(uid, autor, mensaje, urlImagen, nombreFoto, categoria,fecha, userFotoPerfil));
     },
     getPosts: async (req, res) => {
         const { categoria } = req.body;
@@ -60,6 +60,10 @@ const ctrlDatos = {
     getUserById: async(req, res) => {
         res.json(await modelDatos.getUserById(req.body.user));
     },
+    updateFotoPerfil: async(req, res) => {
+        const {uid, urlImagen} = req.body;
+        res.json(await modelDatos.updateFotoPerfil(uid, urlImagen))
+    }
     /*,
     sendUbication: async(req, res) => {
         const { user, lat, long } = req.body;

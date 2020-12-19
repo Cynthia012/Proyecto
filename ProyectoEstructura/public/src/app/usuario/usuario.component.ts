@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { MensajeService } from './../services/mensaje.service';
 import { PostServiceService } from './../services/post-service.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -7,12 +8,14 @@ import Speech from "speak-tts"; //importamos la librería
 import * as firebase from 'firebase';
 import swal from 'sweetalert2';
 import { WindowsService } from '../windows.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
-export class UsuarioComponent implements OnInit {
+export class UsuarioComponent implements OnDestroy {
   flagLoad = true;
   flagMensaje = false;
   flagVer = false;
@@ -25,28 +28,39 @@ export class UsuarioComponent implements OnInit {
   idUser = '';
   usuario = '';
   selfUser = '';
-  selfUserName= '';
+  selfUserName = '';
   mensaje = '';
   lecFinal = ""; //variable en donde guardaremos lo que se va a leer al final
   speech: any;
   edicionValue = '';
-  phone:any;
+  phone: any;
   confirmCode: any;
-  phoneText:any;
+  phoneText: any;
 
   windowRefs: any;
-  constructor(private route : ActivatedRoute,
-              private router: Router,
-              private afAuth: AngularFireAuth,
-              private ngZone: NgZone,
-              private postService: PostServiceService,
-              private mensajeservice: MensajeService,
-              private win: WindowsService) {
+
+  user: firebase.User
+
+  fileData: any;
+  previewUrl: any = null;
+  modalLoading = false;
+  stop$: any;
+
+
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private ngZone: NgZone,
+    private postService: PostServiceService,
+    private mensajeservice: MensajeService,
+    private win: WindowsService) {
+    this.stop$ = new Subject<void>();
     this.afAuth.onAuthStateChanged((user) => {
       this.ngZone.run(() => {
         if (!user) {
           this.router.navigate(['theFee']);
         } else {
+          this.user = user
           this.phone = user.phoneNumber;
           this.selfUser = user.uid;
           this.selfUserName = user.displayName;
@@ -54,8 +68,16 @@ export class UsuarioComponent implements OnInit {
             this.usuario = params.autor
             this.idUser = params.id;
             console.log(params.id.nombre);
-              
+
             console.log(this.idUser);
+            if(this.idUser !== this.selfUser){
+              this.postService.getUserByID(params.id).subscribe((data: any) => {
+                console.log(data)
+                this.fotoURL = data.usuario.fotoURL
+              });
+            } else if( this.idUser == this.selfUser){
+              this.fotoURL = user.photoURL
+            }
 
             this.postService.getMyPosts(this.idUser).subscribe((data: any) => {
               this.flagLoad = false;
@@ -64,11 +86,11 @@ export class UsuarioComponent implements OnInit {
             });
           });
         }
-          
-        });
-      });
 
-       // lector de pantalla
+      });
+    });
+
+    // lector de pantalla
 
     this.speech = new Speech(); //Ve si es soportado en nuestro navegador
 
@@ -94,7 +116,7 @@ export class UsuarioComponent implements OnInit {
           //data contiene una lista de voces
           console.log("Speech está listo", data);
           data.voices.forEach((voice) => {
-            
+
           });
         })
         .catch((e) => {
@@ -103,13 +125,17 @@ export class UsuarioComponent implements OnInit {
     } //fin if
 
 
-}
+  }
+  ngOnDestroy(): void {
+    this.stop$.next();
+    this.stop$.complete();
+  }
   ngOnInit(): void {
   }
-  enviarMensaje(){
+  enviarMensaje() {
     let fecha = new Date();
-    this.mensajeservice.sendMessage(this.idUser,this.mensaje,fecha.toDateString(),this.selfUserName).subscribe((data) =>{
-      if(data['succed']){
+    this.mensajeservice.sendMessage(this.idUser, this.mensaje, fecha.toDateString(), this.selfUserName).subscribe((data) => {
+      if (data['succed']) {
         swal.fire(
           'Mensaje enviado correctamente',
           'Felicidades',
@@ -120,14 +146,14 @@ export class UsuarioComponent implements OnInit {
     });
 
   }
-  recuperarMensajes(){
-    if(!this.flagVer){
-      this.mensajeservice.getMessages(this.selfUser).subscribe((data) =>{
-        console.log("que tienes "+data['mensajes'][0]['mensaje'] );
-      this.mensajesList = data['mensajes'];
-      this.flagVer = true;
-     });
-    }else{
+  recuperarMensajes() {
+    if (!this.flagVer) {
+      this.mensajeservice.getMessages(this.selfUser).subscribe((data) => {
+        console.log("que tienes " + data['mensajes'][0]['mensaje']);
+        this.mensajesList = data['mensajes'];
+        this.flagVer = true;
+      });
+    } else {
       this.flagVer = false;
     }
   }
@@ -161,62 +187,97 @@ export class UsuarioComponent implements OnInit {
   }
 
 
-  async eliminarPost(post:any){
+  async eliminarPost(post: any) {
     let c = await this.postService.deletePost(post);
-    c.request.subscribe((data) => {console.log(data)});
+    c.request.subscribe((data) => { console.log(data) });
     this.reloadPosts();
   }
-  async editarPost(post:any){    
+  async editarPost(post: any) {
     this.flagEdicion = false;
-      let c = await this.postService.editPost(post,this.edicionValue);
-      c.request.subscribe((data) => {console.log(data)});
-      this.reloadPosts();
-      
-    }
-  reloadPosts(){
+    let c = await this.postService.editPost(post, this.edicionValue);
+    c.request.subscribe((data) => { console.log(data) });
+    this.reloadPosts();
+
+  }
+  reloadPosts() {
     this.postService.getMyPosts(this.idUser).subscribe((data: any) => {
       this.myPosts = data.posts;
-    });    
+    });
   }
-    addPhone(){
+  addPhone() {
 
-      this.windowRefs = this.win.windowRef;
-      this.windowRefs.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-      this.windowRefs.recaptchaVerifier
-                  .render()
-                  .then( widgetId => {this.windowRefs.recaptchaWidgetId = widgetId});
+    this.windowRefs = this.win.windowRef;
+    this.windowRefs.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    this.windowRefs.recaptchaVerifier
+      .render()
+      .then(widgetId => { this.windowRefs.recaptchaWidgetId = widgetId });
 
 
-      firebase.auth().currentUser.linkWithPhoneNumber(this.phoneText, this.windowRefs.recaptchaVerifier)
+    firebase.auth().currentUser.linkWithPhoneNumber(this.phoneText, this.windowRefs.recaptchaVerifier)
       .then((confirmationResult) => {
         this.flagFormPhone = false;
         this.flagConfirmPhone = true;
         this.windowRefs.confirmationResult = confirmationResult;
       })
       .catch((error) => {
-         swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Número incorrecto o en uso'
-            })
-          
+        swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Número incorrecto o en uso'
+        })
+
         console.log("error");
       });
-    }
-    confirmPhone(){
-        this.windowRefs.confirmationResult
-        .confirm(this.confirmCode)//si es el codigo correcto
-        .then( result => {//enconces entra
-          console.log("OK");
-          this.flagConfirmPhone = false;
-        })
-        .catch( error =>{ console.log(error, "Incorrect code entered?")
+  }
+  confirmPhone() {
+    this.windowRefs.confirmationResult
+      .confirm(this.confirmCode)//si es el codigo correcto
+      .then(result => {//enconces entra
+        console.log("OK");
+        this.flagConfirmPhone = false;
+      })
+      .catch(error => {
+        console.log(error, "Incorrect code entered?")
         swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Código incorrecto'
         })
       });// en caso de no es el cófigo correcto, manda error
-      }
+  }
+  fileProgress(fileInput: any) {
+    this.fileData = (fileInput.target.files[0] as File);
+    // Show preview
+    let mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
     }
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+  updateFotoPerfil() {
+    this.modalLoading = true;
+    let fecha = new Date();
+    this.postService.updateFotoPerfil(this.user, this.fileData);
+    this.postService._subirPost.pipe(takeUntil(this.stop$)).subscribe((data: any) => {
+      console.log(data);
+      if (data && data.success) {
+        this.user.updateProfile({
+          photoURL: data.photoURL
+        }).then(() => {
+          swal.fire({
+            title: 'Listo!',
+            text: 'Se ha subido correctamente!',
+            icon: 'success'
+          });
+        });
+        this.modalLoading = false;
+      }
+    });
+  }
+}
 

@@ -45,7 +45,7 @@
         <div class="container">
           <mat-card class="grid-item text-center">
             <mat-card-header>
-              <img mat-card-avatar src="../../assets/usu.png" alt="" />
+              <img mat-card-avatar [src]="user.photoURL" alt="" />
               <mat-card-title>{{ user.displayName }}</mat-card-title>
               <mat-card-subtitle>¿Tienes algo que decir?</mat-card-subtitle>
             </mat-card-header>
@@ -68,7 +68,7 @@
       <div *ngFor="let post of posts" class="container">
         <mat-card class="grid-item text-center post">
           <mat-card-header>
-            <img mat-card-avatar src="../../assets/usu.png" alt="" />
+            <img mat-card-avatar [src]="post.userFotoPerfil" alt="" />
             <mat-card-title><a href="javascript:void(0)" (click)="goToUser(post.id, post.autor)">{{ post.autor }}</a>
             </mat-card-title>
             <mat-card-subtitle>{{ post.fecha }}</mat-card-subtitle>

@@ -31,28 +31,25 @@ export class NavbarComponent implements OnInit {
     this.afAuth.onAuthStateChanged((user) => {
       this.ngZone.run(() => {
 
-        console.log("navbar");
-
-        console.log(user.photoURL);
-        console.log(user.displayName);
-        this.iduser = user.uid;
-        this.nameuser = user.displayName;
         // console.log(user.);
 
         if (user) {
           this.bandlog = true;
           this.fotoURL = user.photoURL;
-
+          
+          this.iduser = user.uid;
+          this.nameuser = user.displayName;
+          if (user.displayName == 'marksuckerberg69') {
+            this.adminband = true;
+          } else {
+            this.adminband = false;
+          }
         } else {
           this.bandlog = false;
           this.fotoURL = '';
         }
 
-        if (user.displayName == 'marksuckerberg69') {
-          this.adminband = true;
-        } else {
-          this.adminband = false;
-        }
+
       });
 
     });

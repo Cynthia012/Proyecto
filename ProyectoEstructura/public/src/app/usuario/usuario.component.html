@@ -39,7 +39,7 @@
       </div>
         <mat-card class="grid-item text-center" id = "princ">  
           <mat-card-header>
-       <img mat-card-avatar src="../../assets/usu.png" alt="">
+       <img mat-card-avatar [src]="fotoURL" alt="">
               <mat-card-title class="grid-item text-center">{{this.usuario}}</mat-card-title>
               <a href="javascript:void(0)" *ngIf="this.phone === null && this.idUser === this.selfUser" style="color:lime" (click)="this.flagFormPhone = true">Añadir Número de teléfono</a>
               <mat-card-subtitle *ngIf="this.idUser !== this.selfUser"><button class="btn btn-outline-light mx-2">Seguir</button><button class="btn btn-outline-warning" (click)="this.flagMensaje=true">Mensaje Secreto</button></mat-card-subtitle>
@@ -49,9 +49,11 @@
                 <button class="btn btn-outline-danger m-2" (click)="this.flagMensaje=false">Cancelar</button>
               </mat-card-subtitle> 
               <ng-template #sino>
-              <mat-card-subtitle>            
-                <button *ngIf="this.idUser === this.selfUser" class="btn btn-outline-light m-2" (click)="recuperarMensajes()">Ver Mensajes</button>
-              </mat-card-subtitle> 
+                <mat-card-subtitle>            
+                  <button *ngIf="this.idUser === this.selfUser" class="btn btn-outline-light m-2" (click)="recuperarMensajes()">Ver Mensajes</button>
+                  <button *ngIf="this.idUser === this.selfUser" data-target="#modalFotoPerfil" data-toggle="modal" type="button" class="btn btn-outline-light m-2">Cambiar foto de perfil</button>
+                </mat-card-subtitle> 
+                
             </ng-template>
               <mat-card-subtitle *ngIf="this.flagVer" class="w-100 p-2">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">                  
@@ -78,7 +80,7 @@
               <div *ngFor="let post of myPosts" class="container">
                 <mat-card class="grid-item text-center">
                   <mat-card-header>
-                    <img mat-card-avatar [src]="fotoURL" alt="" />
+                    <img mat-card-avatar [src]="post.userFotoPerfil" alt="" />
                     <mat-card-title>                    
                       {{post.autor}}
                       <a class="edicion" href="javascript:void(0)" (click)="eliminarPost(post)" *ngIf="this.idUser === this.selfUser"> <mat-icon>delete_outline</mat-icon></a>
@@ -87,6 +89,9 @@
                     <mat-card-subtitle>{{post.fecha}}</mat-card-subtitle>
                     <mat-card-subtitle>{{post.categoria}}</mat-card-subtitle>
                   </mat-card-header>
+                  <ng-container *ngIf="post.refFoto">
+                    <img mat-card-image alt="texto alternativo" class="mat-card-image" [src]="post.refFoto" style="width: 20rem;">
+                  </ng-container>
                   <mat-card-content>
                     <div *ngIf="!this.flagEdicion ">
                       {{post.mensaje}}
@@ -111,6 +116,41 @@
     </section>
 </body>
 
+
+<div class="modal fade" id="modalFotoPerfil" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalCenterTitle">
+              <label class="my-auto" for="Descripcion">Escribenos un comentario y sube tu foto!</label>
+            </h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row mx-auto text-center my-4">
+                <input type="file" name="postFoto" (change)="fileProgress($event)" id="postFoto" />
+              </div>
+              <div class="image-preview row mx-auto text-center my-1" *ngIf="previewUrl">
+                <p class="text-secondary col-12 mb-3">Foto seleccionada</p>
+                <br>
+                <img [src]="previewUrl" class="w-100 mx-auto col-12 col-lg-10 col-xl-12 align-items-center" />
+              </div>
+            </div>
+          </div>
+          <app-loading *ngIf="this.modalLoading" class="mb-3"></app-loading>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button (click)="updateFotoPerfil()" type="button" class="btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <!-- kfvjnfj
 <img class="usu" src="../../assets/cat/info.jpg"   alt=""> -->
