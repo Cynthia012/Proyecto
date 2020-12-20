@@ -48,7 +48,7 @@ goto(): void{
 save(): void{
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(position => { 
-      this.map.sendUbication(position.coords.latitude.toString(), position.coords.longitude.toString(),this.user.displayName).subscribe(res =>{
+      this.map.sendUbication(position.coords.latitude.toString(), position.coords.longitude.toString(),this.user.displayName,this.user.photoURL).subscribe(res =>{
         if(res=="OK"){
           Swal.fire(
             'Ubicación registrada con éxito',
@@ -68,8 +68,14 @@ save(): void{
       this.map.getUbication(position.coords.latitude.toString(), position.coords.longitude.toString()).subscribe(res =>{
         console.log(res);
         for(let el in res){
+          console.log("https://firebasestorage.googleapis.com/v0/b/thefeeuaa.appspot.com/o/fotoDePerfil%2FHF0MPwqIHudQkZ8cvw9Oy5PUfkD3%2F2doPersonajeDefinitivo.jpg?alt=media&token=78ecbad4-d49f-4c42-abb6-d1aa0ae69ce9".length);
           var popup = new mapboxgl.Popup()
-          .setText(res[el]['usuario'])
+          
+          //.setText(res[el]['usuario'])
+          //<img src="https://firebasestorage.googleapis.com/v0/b/thefeeuaa.appspot.com/o/fotoDePerfil%2FHF0MPwqIHudQkZ8cvw9Oy5PUfkD3%2F2doPersonajeDefinitivo.jpg?alt=media&token=78ecbad4-d49f-4c42-abb6-d1aa0ae69ce9" alt="" />
+          .setHTML(`
+          <h6>${res[el]['usuario']}</h6>
+          <img style="width:6em;height:6em;border-radius:200px" src="${res[el]['imagen']}" alt="" />`)
           .addTo(this.map.map);
 
           this.map.map.setCenter([position.coords.longitude,position.coords.latitude]);

@@ -9,9 +9,9 @@ var connection = mysql.createConnection({
 connection.connect();
 
 const modelUbicacion = {
-    sendUbication(user, lat, long){
+    sendUbication(user, lat, long, img){
      return new Promise((resolve, reject) => {
-        connection.query(`INSERT INTO ubicacion VALUES (null,"${user}","${lat}","${long}")`, 
+        connection.query(`INSERT INTO ubicacion VALUES (null,"${user}","${lat}","${long}","${img}")`, 
         function(error, results){
                 resolve('OK');
                 console.log('dsfsd');

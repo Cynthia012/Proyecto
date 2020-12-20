@@ -41,8 +41,12 @@ const ctrlDatos = {
         res.json(await modelDatos.deletePost(idPost, categoria, idPost2, idAutor));
     },
     editPost: async (req, res) => {
-        const { idPost, categoria, text, fecha, idAutor, nameAutor, idPost2 } = req.body;
-        res.json(await modelDatos.editPost(idPost, categoria, text, fecha, idAutor, nameAutor, idPost2));
+        const { idPost, categoria, text, fecha, idAutor, nameAutor, fotoAutor, fotoPost, idPost2 } = req.body;
+        res.json(await modelDatos.editPost(idPost, categoria, text, fecha, idAutor, nameAutor, fotoAutor, fotoPost, idPost2));
+    },
+    editPostProfile: async (req, res) => {
+        const { idPost, idAutor, fotoAutor, idPost2,categoria } = req.body;
+        res.json(await modelDatos.editPostProfile(idPost, idAutor, fotoAutor, idPost2, categoria));
     },
     sendMail: async (req, res) => {
         const { user, queja } = req.body;

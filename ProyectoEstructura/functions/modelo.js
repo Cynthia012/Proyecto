@@ -359,24 +359,53 @@ const modelDatos = {
             });
         });
     },
-    editPost(idPost, categoria, text, fecha, idAutor, nameAutor, idPost2) {
+    editPost(idPost, categoria, text, fecha, idAutor, nameAutor, fotoAutor, fotoPost, idPost2) {
         return new Promise((resolve, reject) => {
             var newData = {
-                id: idAutor,
-                autor: nameAutor,
-                fecha: fecha,
-                mensaje: text
+		    refFoto: fotoPost,
+		    mensaje: text,
+		    fecha,
+                    autor: nameAutor,
+                    categoria: categoria,
+                    id: idAutor,
+		    userFotoPerfil:fotoAutor
             }
             var updates = {};
             updates['/categorias/' + categoria + '/' + idPost2] = newData;
             firebase.database().ref().update(updates).then(() => {
                 newData = {
-                    id: idAutor,
+		    refFoto: fotoPost,
+		    mensaje: text,
+		    fecha,
                     autor: nameAutor,
-                    fecha: fecha,
-                    mensaje: text,
-                    categoria: categoria
+                    categoria: categoria,
+                    id: idAutor,
+		    userFotoPerfil:fotoAutor
                 }
+                updates['/users/' + idAutor + '/posts/' + idPost] = newData;
+                firebase.database().ref().update(updates).then(() => {
+                    resolve({ success: true });
+                    return ({ success: true });
+                }).catch((err) => {
+                    return ({ success: false, error: err });
+                });
+                return ({ success: false });
+            }).catch((err) => {
+                return ({ success: false, error: err });
+            });
+        });
+    },
+    editPostProfile(idPost, idAutor, fotoAutor, idPost2, categoria) {
+        return new Promise((resolve, reject) => {
+            var newData = {
+		    userFotoPerfil:fotoAutor
+            }
+            var updates = {};
+            updates['/categorias/' + categoria + '/' + idPost2] = newData;
+            firebase.database().ref().update(updates).then(() => {
+                  var newData = {
+		    userFotoPerfil:fotoAutor
+            }
                 updates['/users/' + idAutor + '/posts/' + idPost] = newData;
                 firebase.database().ref().update(updates).then(() => {
                     resolve({ success: true });

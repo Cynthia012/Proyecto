@@ -42,11 +42,12 @@ export class MapService {
     this.map.addControl(new mapboxgl.NavigationControl());
   }
 
-  sendUbication(lat:string, long:string, usuario:string){
+  sendUbication(lat:string, long:string, usuario:string, img: string){
     let body= new HttpParams()
     .set("user", usuario)
     .set("lat", lat)
     .set("long", long)
+    .set("img", img)
     return this.http.post(this.baseUrl+"sendUbication",body.toString(),{
       headers: new HttpHeaders()
       .set('Content-Type','application/x-www-form-urlencoded')

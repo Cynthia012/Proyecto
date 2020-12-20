@@ -63,6 +63,8 @@ export class PostServiceService {
               .set('categoria', categoria)
               .set('fecha',fecha)
               .set('userFotoPerfil', userPhotoURL);
+
+              console.log(userPhotoURL);
             this.http.post(this.urlapi + 'addPostWithImage', body.toString(), {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -115,6 +117,8 @@ return new Promise((resolve,reject) => {
           .set('fecha', new Date().toDateString())
           .set('idAutor', post.id)
           .set('nameAutor', post.autor)
+          .set('fotoAutor', post.userFotoPerfil)
+          .set('fotoPost', post.refFoto)
           .set('idPost2', data['posts'][i]['idPost']);
           let req = this.http.post(this.urlapi + 'editPost', body.toString(), {
             headers: new HttpHeaders()
@@ -192,6 +196,7 @@ return new Promise((resolve,reject) => {
               })
               this.$subirPost.next(data);
             });
+          
         });
       });
   }
